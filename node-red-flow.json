@@ -91,7 +91,7 @@
         "statusVal": "",
         "statusType": "auto",
         "x": 940,
-        "y": 380,
+        "y": 360,
         "wires": []
     },
     {
@@ -164,7 +164,10 @@
                 "51c3ecfed6ddc3fc",
                 "d91cb88ded87852f",
                 "64fb92dbaa179f4e",
-                "a37b84b3ba24a76d"
+                "a37b84b3ba24a76d",
+                "6254a699dd812f24",
+                "af27cdf0bc329698",
+                "a83c3055bf016b19"
             ],
             [
                 "f934cf1d859cc681"
@@ -189,8 +192,8 @@
         "resendOnRefresh": false,
         "templateScope": "local",
         "className": "",
-        "x": 1300,
-        "y": 420,
+        "x": 1340,
+        "y": 300,
         "wires": [
             []
         ]
@@ -207,8 +210,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 1270,
-        "y": 360,
+        "x": 1310,
+        "y": 240,
         "wires": [
             [
                 "e9b1669a8c27a03f"
@@ -239,8 +242,8 @@
         "seg2": "1020",
         "diff": false,
         "className": "",
-        "x": 1540,
-        "y": 360,
+        "x": 1580,
+        "y": 240,
         "wires": []
     },
     {
@@ -267,8 +270,8 @@
         "seg2": "50",
         "diff": false,
         "className": "",
-        "x": 1550,
-        "y": 300,
+        "x": 1590,
+        "y": 180,
         "wires": []
     },
     {
@@ -283,8 +286,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 1280,
-        "y": 300,
+        "x": 1320,
+        "y": 180,
         "wires": [
             [
                 "fd4fdff15b1d16a3"
@@ -298,9 +301,13 @@
         "name": "Extract Humidity",
         "func": "msg.payload = msg.payload.current.humidity;\nreturn msg;",
         "outputs": 1,
+        "timeout": "",
         "noerr": 0,
-        "x": 1270,
-        "y": 240,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1310,
+        "y": 120,
         "wires": [
             [
                 "72b0156dcf77ca48"
@@ -331,8 +338,8 @@
         "seg2": "70",
         "diff": false,
         "className": "",
-        "x": 1560,
-        "y": 240,
+        "x": 1600,
+        "y": 120,
         "wires": []
     },
     {
@@ -359,8 +366,8 @@
         "seg2": "30",
         "diff": false,
         "className": "",
-        "x": 1580,
-        "y": 180,
+        "x": 1620,
+        "y": 60,
         "wires": []
     },
     {
@@ -371,8 +378,8 @@
         "func": "msg.payload = msg.payload.current.temperature;\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
-        "x": 1280,
-        "y": 180,
+        "x": 1320,
+        "y": 60,
         "wires": [
             [
                 "dc58e4bf4084ed3f"
@@ -387,8 +394,8 @@
         "func": "return msg;",
         "outputs": 1,
         "noerr": 0,
-        "x": 1290,
-        "y": 520,
+        "x": 1310,
+        "y": 600,
         "wires": [
             [
                 "fa545de0230115e9"
@@ -410,8 +417,8 @@
         "resendOnRefresh": false,
         "templateScope": "local",
         "className": "",
-        "x": 1540,
-        "y": 520,
+        "x": 1560,
+        "y": 600,
         "wires": [
             []
         ]
@@ -421,15 +428,15 @@
         "type": "function",
         "z": "5beda5fc7aeb1538",
         "name": "Store Historical Data",
-        "func": "// Get historical data\nlet history = flow.get('weatherHistory') || [];\n\nconst currentWeather = msg.currentWeather;\nif (currentWeather && currentWeather.current) {\n    const timestamp = new Date();\n    const city = msg.city || 'Unknown';\n\n    const entry = {\n        timestamp: timestamp.getTime(),\n        datetime: timestamp.toLocaleString(),\n        city: city,\n        temperature: currentWeather.current.temperature,\n        humidity: currentWeather.current.humidity,\n        pressure: currentWeather.current.pressure,\n        wind_speed: currentWeather.wind.speed\n    };\n\n    history.push(entry);\n\n    // Keep last 100 entries total\n    history = history.slice(-100);\n\n    flow.set('weatherHistory', history);\n\n    // Filter history for current city only\n    const cityHistory = history.filter(h => h.city === city).slice(-20);\n\n    // Output 1: Chart data (formatted for ui_chart)\n    let chartMsg = {\n        payload: currentWeather.current.temperature,\n        topic: 'Temperature',\n        city: city\n    };\n\n    // Output 2: Stats data (array of history for current city)\n    let statsMsg = {\n        payload: cityHistory,\n        city: city\n    };\n\n    return [chartMsg, statsMsg];\n}\n\nreturn null;",
+        "func": "// Get historical data and last tracked city\nlet history = flow.get('weatherHistory') || [];\nlet lastCity = flow.get('lastTrackedCity') || null;\n\nconst currentWeather = msg.currentWeather;\nif (currentWeather && currentWeather.current) {\n    const timestamp = new Date();\n    const city = msg.city || 'Unknown';\n\n    // Check if city has changed - if so, reset history\n    if (lastCity && lastCity !== city) {\n        // Clear chart by sending empty array\n        let clearMsg = {\n            payload: [],\n            topic: 'Temperature'\n        };\n        node.send([clearMsg, null]);\n\n        // Reset history for new city\n        history = [];\n        node.warn(`City changed from ${lastCity} to ${city}. Resetting historical data.`);\n    }\n\n    // Update last tracked city\n    flow.set('lastTrackedCity', city);\n\n    const entry = {\n        timestamp: timestamp.getTime(),\n        datetime: timestamp.toLocaleString(),\n        city: city,\n        temperature: currentWeather.current.temperature,\n        humidity: currentWeather.current.humidity,\n        pressure: currentWeather.current.pressure,\n        wind_speed: currentWeather.wind.speed\n    };\n\n    history.push(entry);\n\n    // Keep last 100 entries total\n    history = history.slice(-100);\n\n    flow.set('weatherHistory', history);\n\n    // Filter history for current city only\n    const cityHistory = history.filter(h => h.city === city).slice(-20);\n\n    // Output 1: Chart data (formatted for ui_chart)\n    let chartMsg = {\n        payload: currentWeather.current.temperature,\n        topic: 'Temperature',\n        city: city\n    };\n\n    // Output 2: Stats data (array of history for current city)\n    let statsMsg = {\n        payload: cityHistory,\n        city: city\n    };\n\n    return [chartMsg, statsMsg];\n}\n\nreturn null;",
         "outputs": 2,
         "timeout": "",
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 1300,
-        "y": 660,
+        "x": 1320,
+        "y": 740,
         "wires": [
             [
                 "6dca180350d86545"
@@ -478,8 +485,8 @@
         "outputs": 1,
         "useDifferentColor": false,
         "className": "",
-        "x": 1600,
-        "y": 620,
+        "x": 1620,
+        "y": 700,
         "wires": [
             []
         ]
@@ -496,8 +503,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 1590,
-        "y": 680,
+        "x": 1610,
+        "y": 760,
         "wires": [
             [
                 "8e752f480a6d4316"
@@ -519,8 +526,8 @@
         "resendOnRefresh": false,
         "templateScope": "local",
         "className": "",
-        "x": 1850,
-        "y": 680,
+        "x": 1870,
+        "y": 760,
         "wires": [
             []
         ]
@@ -564,8 +571,8 @@
         "createDir": false,
         "overwriteFile": "false",
         "encoding": "utf8",
-        "x": 1800,
-        "y": 740,
+        "x": 1820,
+        "y": 820,
         "wires": [
             []
         ]
@@ -582,13 +589,130 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 1570,
-        "y": 740,
+        "x": 1590,
+        "y": 820,
         "wires": [
             [
                 "76aabefe80ae47bd"
             ]
         ]
+    },
+    {
+        "id": "6254a699dd812f24",
+        "type": "function",
+        "z": "5beda5fc7aeb1538",
+        "name": "check temperature",
+        "func": "const temp = msg.payload.current.temperature;\nconst city = msg.city || 'Unknown';\n\n// Define thresholds\nconst highTempThreshold = 35;\nconst lowTempThreshold = 0;\n\nif (temp >= highTempThreshold) {\n    msg.payload = `High Temperature Alert: ${temp}°C in ${city}!`;\n    msg.topic = 'warning';\n    return msg;\n} else if (temp <= lowTempThreshold) {\n    msg.payload = `Low Temperature Alert: ${temp}°C in ${city}!`;\n    msg.topic = 'warning';\n    return msg;\n}\n\nreturn null;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1320,
+        "y": 380,
+        "wires": [
+            [
+                "edccb7ae832a4758"
+            ]
+        ]
+    },
+    {
+        "id": "af27cdf0bc329698",
+        "type": "function",
+        "z": "5beda5fc7aeb1538",
+        "name": "check humidity",
+        "func": "const humidity = msg.payload.current.humidity;\nconst city = msg.city || 'Unknown';\n\n// Define thresholds\nconst highHumidityThreshold = 80;\nconst lowHumidityThreshold = 30;\n\nif (humidity >= highHumidityThreshold) {\n    msg.payload = `High Humidity Alert: ${humidity}% in ${city}!`;\n    msg.topic = 'info';\n    return msg;\n} else if (humidity <= lowHumidityThreshold) {\n    msg.payload = `Low Humidity Alert: ${humidity}% in ${city}!`;\n    msg.topic = 'info';\n    return msg;\n}\n\nreturn null;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1310,
+        "y": 440,
+        "wires": [
+            [
+                "910403597128de60"
+            ]
+        ]
+    },
+    {
+        "id": "a83c3055bf016b19",
+        "type": "function",
+        "z": "5beda5fc7aeb1538",
+        "name": "check extreme weather",
+        "func": "const description = msg.payload.current.description.toLowerCase();\nconst city = msg.city || 'Unknown';\n\n// Check for extreme weather conditions\nconst extremeConditions = ['thunderstorm', 'heavy rain', 'snow', 'tornado', 'hurricane'];\n\nfor (let condition of extremeConditions) {\n    if (description.includes(condition)) {\n        msg.payload = `EXTREME WEATHER ALERT: ${description} in ${city}!`;\n        msg.topic = 'error';\n        return msg;\n    }\n}\n\nreturn null;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1340,
+        "y": 500,
+        "wires": [
+            [
+                "af8a3b2f46f560a2"
+            ]
+        ]
+    },
+    {
+        "id": "edccb7ae832a4758",
+        "type": "ui_toast",
+        "z": "5beda5fc7aeb1538",
+        "position": "top right",
+        "displayTime": "5",
+        "highlight": "",
+        "sendall": true,
+        "outputs": 0,
+        "ok": "OK",
+        "cancel": "",
+        "raw": false,
+        "className": "",
+        "topic": "",
+        "name": "temperature alert",
+        "x": 1620,
+        "y": 380,
+        "wires": []
+    },
+    {
+        "id": "910403597128de60",
+        "type": "ui_toast",
+        "z": "5beda5fc7aeb1538",
+        "position": "top right",
+        "displayTime": "5",
+        "highlight": "",
+        "sendall": true,
+        "outputs": 0,
+        "ok": "OK",
+        "cancel": "",
+        "raw": false,
+        "className": "",
+        "topic": "",
+        "name": "humidity alert",
+        "x": 1600,
+        "y": 440,
+        "wires": []
+    },
+    {
+        "id": "af8a3b2f46f560a2",
+        "type": "ui_toast",
+        "z": "5beda5fc7aeb1538",
+        "position": "top right",
+        "displayTime": "5",
+        "highlight": "",
+        "sendall": true,
+        "outputs": 0,
+        "ok": "OK",
+        "cancel": "",
+        "raw": false,
+        "className": "",
+        "topic": "",
+        "name": "exterme weather alert",
+        "x": 1630,
+        "y": 500,
+        "wires": []
     },
     {
         "id": "group1",
@@ -633,7 +757,7 @@
         "hidden": false
     },
     {
-        "id": "010aae0f23212b38",
+        "id": "c7b0fb3037214ad5",
         "type": "global-config",
         "env": [],
         "modules": {
