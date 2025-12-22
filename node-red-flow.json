@@ -103,7 +103,7 @@
         "tooltip": "Enter city name (e.g., Tokyo, Kuala Lumpur)",
         "group": "group1",
         "order": 1,
-        "width": "6",
+        "width": "5",
         "height": "1",
         "passthru": true,
         "mode": "text",
@@ -539,10 +539,10 @@
         "name": "Refresh Button",
         "group": "group1",
         "order": 2,
-        "width": "3",
+        "width": "1",
         "height": "1",
         "passthru": false,
-        "label": "Refresh",
+        "label": "",
         "tooltip": "Refresh weather data",
         "color": "",
         "bgcolor": "",
@@ -757,7 +757,7 @@
         "hidden": false
     },
     {
-        "id": "c7b0fb3037214ad5",
+        "id": "a1f0d488c3662e95",
         "type": "global-config",
         "env": [],
         "modules": {
