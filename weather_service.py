@@ -455,8 +455,14 @@ class WeatherManager:
             )
         
         # 4. Historical Data
-        raw_history = self.open_meteo_service.get_historical_weather(lat, lon)
-        historical = self.data_processor.process_historical_weather(raw_history)
+        historical = {} # Initialize historical
+        if 'location' in current and 'coordinates' in current['location']:
+            coords = current['location']['coordinates']
+            # Fetch 30 days to support monthly view
+            raw_history = self.open_meteo_service.get_historical_weather(
+                coords['lat'], coords['lon'], days=30
+            )
+            historical = self.data_processor.process_historical_weather(raw_history)
         
         return {
             "current_weather": current,

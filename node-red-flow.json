@@ -428,7 +428,7 @@
         "type": "function",
         "z": "7a2819d05f5f4e5c",
         "name": "Process History",
-        "func": "// Handle View Mode Selection\nif (msg.topic === 'viewMode') {\n    flow.set('historyViewMode', msg.payload);\n}\n\n// Handle New Data\nif (msg.payload && msg.payload.hourly) {\n    flow.set('historicalData', msg.payload);\n}\n\n// Get current state\nconst viewMode = flow.get('historyViewMode') || '7d';\nconst data = flow.get('historicalData');\nconst city = (msg.city) ? msg.city : (flow.get('currentCity') || 'Unknown');\n\nif (!data || !data.hourly) {\n    return null;\n}\n\nlet hourly = data.hourly;\n\n// Filter based on view mode\nif (viewMode === '24h') {\n    const oneDayAgo = new Date().getTime() - (24 * 60 * 60 * 1000);\n    hourly = hourly.filter(h => new Date(h.timestamp).getTime() > oneDayAgo);\n}\n\n// 1. Prepare Chart Data\n// Create array of {x, y} points\nconst points = hourly.map(h => {\n    return {\n        x: new Date(h.timestamp).getTime(),\n        y: h.temperature\n    };\n});\n\n// Chart payload\nlet chartMsg = {\n    payload: [{\n        series: [\"Temperature\"],\n        data: [points],\n        labels: [\"Temperature\"]\n    }],\n    topic: 'Temperature',\n    city: city\n};\n\n// 2. Prepare Stats Data\nlet statsMsg = {\n    payload: hourly,\n    city: city\n};\n\nreturn [chartMsg, statsMsg];",
+        "func": "// Handle View Mode Selection\nif (msg.topic === 'viewMode') {\n    flow.set('historyViewMode', msg.payload);\n}\n\n// Handle New Data\nif (msg.payload && msg.payload.hourly) {\n    flow.set('historicalData', msg.payload);\n}\n\n// Get current state\nconst viewMode = flow.get('historyViewMode') || '7d';\nconst data = flow.get('historicalData');\nconst city = (msg.city) ? msg.city : (flow.get('currentCity') || 'Unknown');\n\nif (!data || !data.hourly) {\n    return null;\n}\n\nlet hourly = data.hourly;\n\n// Filter based on view mode\nif (viewMode === '24h') {\n    const oneDayAgo = new Date().getTime() - (24 * 60 * 60 * 1000);\n    hourly = hourly.filter(h => new Date(h.timestamp).getTime() > oneDayAgo);\n} else if (viewMode === '7d') {\n    const sevenDaysAgo = new Date().getTime() - (7 * 24 * 60 * 60 * 1000);\n    hourly = hourly.filter(h => new Date(h.timestamp).getTime() > sevenDaysAgo);\n}\n// '30d' uses all data (up to 30 days fetched)\n\n// 1. Prepare Chart Data\n// Create array of {x, y} points\nconst points = hourly.map(h => {\n    return {\n        x: new Date(h.timestamp).getTime(),\n        y: h.temperature\n    };\n});\n\n// Chart payload\nlet chartMsg = {\n    payload: [{\n        series: [\"Temperature\"],\n        data: [points],\n        labels: [\"Temperature\"]\n    }],\n    topic: 'Temperature',\n    city: city\n};\n\n// 2. Prepare Stats Data\nlet statsMsg = {\n    payload: hourly,\n    city: city\n};\n\nreturn [chartMsg, statsMsg];",
         "outputs": 2,
         "noerr": 0,
         "initialize": "",
@@ -513,6 +513,11 @@
             {
                 "label": "Last 7 Days",
                 "value": "7d",
+                "type": "str"
+            },
+            {
+                "label": "Last 30 Days",
+                "value": "30d",
                 "type": "str"
             }
         ],
@@ -813,6 +818,88 @@
         "width": 18,
         "collapse": false,
         "className": ""
+    },
+    {
+        "id": "btn_export_history",
+        "type": "ui_button",
+        "z": "7a2819d05f5f4e5c",
+        "name": "Export CSV",
+        "group": "caa6853f5a10dd4f",
+        "order": 4,
+        "width": 13,
+        "height": 1,
+        "passthru": false,
+        "label": "Export Historical Data (CSV)",
+        "tooltip": "Export current view to CSV",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "file_download",
+        "payload": "",
+        "payloadType": "str",
+        "topic": "export",
+        "topicType": "str",
+        "x": 1100,
+        "y": 800,
+        "wires": [
+            [
+                "func_format_export"
+            ]
+        ]
+    },
+    {
+        "id": "func_format_export",
+        "type": "function",
+        "z": "7a2819d05f5f4e5c",
+        "name": "Format Export Data",
+        "func": "// Get data and view mode\nconst data = flow.get('historicalData');\nconst viewMode = flow.get('historyViewMode') || '7d';\nconst city = flow.get('currentCity') || 'Unknown';\n\nif (!data || !data.hourly) {\n    return null;\n}\n\nlet hourly = data.hourly;\n\n// Filter based on view mode (same logic as Process History)\nconst now = new Date().getTime();\nif (viewMode === '24h') {\n    const cutoff = now - (24 * 60 * 60 * 1000);\n    hourly = hourly.filter(h => new Date(h.timestamp).getTime() > cutoff);\n} else if (viewMode === '7d') {\n    const cutoff = now - (7 * 24 * 60 * 60 * 1000);\n    hourly = hourly.filter(h => new Date(h.timestamp).getTime() > cutoff);\n}\n\n// Create CSV\nlet csv = \"Timestamp,Date,Time,Temperature(C),Humidity(%),Pressure(hPa),Wind Speed(m/s)\\n\";\n\nhourly.forEach(h => {\n    const dt = new Date(h.timestamp);\n    csv += `${h.timestamp},${dt.toLocaleDateString()},${dt.toLocaleTimeString()},${h.temperature},${h.humidity},${h.pressure},${h.wind_speed}\\n`;\n});\n\nmsg.payload = csv;\nmsg.filename = `history_${city}_${viewMode}.csv`; // For file node\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 1320,
+        "y": 800,
+        "wires": [
+            [
+                "file_export_csv"
+            ]
+        ]
+    },
+    {
+        "id": "file_export_csv",
+        "type": "file",
+        "z": "7a2819d05f5f4e5c",
+        "name": "Write Export File",
+        "filename": "weather_history_export.csv",
+        "filenameType": "str",
+        "appendNewline": false,
+        "createDir": false,
+        "overwriteFile": "true",
+        "encoding": "utf8",
+        "x": 1540,
+        "y": 800,
+        "wires": [
+            [
+                "toast_export_done"
+            ]
+        ]
+    },
+    {
+        "id": "toast_export_done",
+        "type": "ui_toast",
+        "z": "7a2819d05f5f4e5c",
+        "position": "top right",
+        "displayTime": "3",
+        "highlight": "",
+        "sendall": true,
+        "outputs": 0,
+        "ok": "OK",
+        "cancel": "",
+        "raw": false,
+        "className": "",
+        "topic": "",
+        "name": "Export Complete",
+        "x": 1740,
+        "y": 800,
+        "wires": []
     },
     {
         "id": "tab1",
