@@ -1,6 +1,6 @@
 [
     {
-        "id": "5beda5fc7aeb1538",
+        "id": "0de154f5c46225de",
         "type": "tab",
         "label": "CPT316_Weather",
         "disabled": false,
@@ -8,10 +8,187 @@
         "env": []
     },
     {
-        "id": "1235a53e3fe5441d",
+        "id": "tab1",
+        "type": "ui_tab",
+        "name": "CPT316 Weather Dashboard",
+        "icon": "dashboard",
+        "order": 1,
+        "disabled": false,
+        "hidden": false
+    },
+    {
+        "id": "d0d8d306278e392a",
+        "type": "global-config",
+        "env": [],
+        "modules": {
+            "node-red-dashboard": "3.6.6"
+        }
+    },
+    {
+        "id": "group1",
+        "type": "ui_group",
+        "name": "Current Weather",
+        "tab": "tab1",
+        "order": 2,
+        "disp": false,
+        "width": 8,
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "0b0f3587ded3510d",
+        "type": "ui_group",
+        "name": "Weather Forecast",
+        "tab": "tab1",
+        "order": 3,
+        "disp": true,
+        "width": 18,
+        "collapse": true,
+        "className": ""
+    },
+    {
+        "id": "caa6853f5a10dd4f",
+        "type": "ui_group",
+        "name": "Historical",
+        "tab": "tab1",
+        "order": 4,
+        "disp": true,
+        "width": 18,
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "dd5286d510858e2e",
+        "type": "ui_base",
+        "theme": {
+            "name": "theme-light",
+            "lightTheme": {
+                "default": "#0094CE",
+                "baseColor": "#0094CE",
+                "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif",
+                "edited": true,
+                "reset": false
+            },
+            "darkTheme": {
+                "default": "#097479",
+                "baseColor": "#097479",
+                "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif",
+                "edited": false
+            },
+            "customTheme": {
+                "name": "Untitled Theme 1",
+                "default": "#4B7930",
+                "baseColor": "#4B7930",
+                "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif"
+            },
+            "themeState": {
+                "base-color": {
+                    "default": "#0094CE",
+                    "value": "#0094CE",
+                    "edited": false
+                },
+                "page-titlebar-backgroundColor": {
+                    "value": "#0094CE",
+                    "edited": false
+                },
+                "page-backgroundColor": {
+                    "value": "#fafafa",
+                    "edited": false
+                },
+                "page-sidebar-backgroundColor": {
+                    "value": "#ffffff",
+                    "edited": false
+                },
+                "group-textColor": {
+                    "value": "#1bbfff",
+                    "edited": false
+                },
+                "group-borderColor": {
+                    "value": "#ffffff",
+                    "edited": false
+                },
+                "group-backgroundColor": {
+                    "value": "#ffffff",
+                    "edited": false
+                },
+                "widget-textColor": {
+                    "value": "#111111",
+                    "edited": false
+                },
+                "widget-backgroundColor": {
+                    "value": "#0094ce",
+                    "edited": false
+                },
+                "widget-borderColor": {
+                    "value": "#ffffff",
+                    "edited": false
+                },
+                "base-font": {
+                    "value": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif"
+                }
+            },
+            "angularTheme": {
+                "primary": "indigo",
+                "accents": "blue",
+                "warn": "red",
+                "background": "grey",
+                "palette": "light"
+            }
+        },
+        "site": {
+            "name": "Node-RED Dashboard",
+            "hideToolbar": "false",
+            "allowSwipe": "false",
+            "lockMenu": "false",
+            "allowTempTheme": "true",
+            "dateFormat": "DD/MM/YYYY",
+            "sizes": {
+                "sx": 48,
+                "sy": 48,
+                "gx": 6,
+                "gy": 6,
+                "cx": 6,
+                "cy": 6,
+                "px": 0,
+                "py": 0
+            }
+        }
+    },
+    {
+        "id": "a0327e6cf4c38204",
+        "type": "ui_spacer",
+        "z": "0de154f5c46225de",
+        "name": "spacer",
+        "group": "group1",
+        "order": 3,
+        "width": 1,
+        "height": 1
+    },
+    {
+        "id": "8a8523b7c570cef6",
+        "type": "ui_spacer",
+        "z": "0de154f5c46225de",
+        "name": "spacer",
+        "group": "group1",
+        "order": 5,
+        "width": 8,
+        "height": 1
+    },
+    {
+        "id": "2b8f60d40a0bb3fd",
+        "type": "ui_spacer",
+        "z": "0de154f5c46225de",
+        "name": "spacer",
+        "group": "caa6853f5a10dd4f",
+        "order": 4,
+        "width": 13,
+        "height": 1
+    },
+    {
+        "id": "c492396fd2830a1a",
         "type": "inject",
-        "z": "5beda5fc7aeb1538",
-        "name": "Get Weather",
+        "z": "0de154f5c46225de",
+        "name": "Get Weather (Default: Penang)",
         "props": [
             {
                 "p": "payload"
@@ -24,18 +201,18 @@
         "topic": "",
         "payload": "Penang",
         "payloadType": "str",
-        "x": 210,
+        "x": 270,
         "y": 360,
         "wires": [
             [
-                "f8bb83549023292c"
+                "ad7def4c9c8550a8"
             ]
         ]
     },
     {
-        "id": "f8bb83549023292c",
+        "id": "ad7def4c9c8550a8",
         "type": "function",
-        "z": "5beda5fc7aeb1538",
+        "z": "0de154f5c46225de",
         "name": "Build URL",
         "func": "// Get city from input, stored city, or default\nlet city = msg.payload;\n\n// If payload is \"refresh\" or empty, use stored city\nif (!city || city === \"refresh\" || city.trim() === \"\") {\n    city = flow.get('currentCity') || 'Penang';\n}\n\n// Store current city\nflow.set('currentCity', city);\n\n// Build API URL\nmsg.url = `http://127.0.0.1:5000/api/weather/complete?city=${encodeURIComponent(city)}`;\nmsg.city = city;\n\nreturn msg;",
         "outputs": 1,
@@ -48,14 +225,14 @@
         "y": 460,
         "wires": [
             [
-                "d5ffd18c6edf28f0"
+                "bdf4f76a44748cdf"
             ]
         ]
     },
     {
-        "id": "d5ffd18c6edf28f0",
+        "id": "bdf4f76a44748cdf",
         "type": "http request",
-        "z": "5beda5fc7aeb1538",
+        "z": "0de154f5c46225de",
         "name": "Get Weather",
         "method": "GET",
         "ret": "obj",
@@ -72,15 +249,15 @@
         "y": 460,
         "wires": [
             [
-                "073c5f69ebaafe54",
-                "70a6efc949f3270b"
+                "4696d4db91f8b5bb",
+                "c4f2fe1b45d068c4"
             ]
         ]
     },
     {
-        "id": "70a6efc949f3270b",
+        "id": "c4f2fe1b45d068c4",
         "type": "debug",
-        "z": "5beda5fc7aeb1538",
+        "z": "0de154f5c46225de",
         "name": "Full Response",
         "active": true,
         "tosidebar": true,
@@ -95,35 +272,35 @@
         "wires": []
     },
     {
-        "id": "de8af10e30dafdc7",
+        "id": "707da491182989cb",
         "type": "ui_text_input",
-        "z": "5beda5fc7aeb1538",
+        "z": "0de154f5c46225de",
         "name": "City Input",
-        "label": "Enter City Name",
+        "label": "Search For City",
         "tooltip": "Enter city name (e.g., Tokyo, Kuala Lumpur)",
         "group": "group1",
         "order": 1,
-        "width": "6",
-        "height": "1",
+        "width": 7,
+        "height": 2,
         "passthru": true,
         "mode": "text",
         "delay": "0",
         "topic": "city",
-        "sendOnBlur": true,
+        "sendOnBlur": false,
         "className": "",
         "topicType": "str",
         "x": 220,
         "y": 420,
         "wires": [
             [
-                "f8bb83549023292c"
+                "ad7def4c9c8550a8"
             ]
         ]
     },
     {
-        "id": "8621c93e40fb91ac",
+        "id": "032846f063efed3b",
         "type": "inject",
-        "z": "5beda5fc7aeb1538",
+        "z": "0de154f5c46225de",
         "name": "Auto Refresh (15 min)",
         "props": [
             {
@@ -141,16 +318,16 @@
         "y": 540,
         "wires": [
             [
-                "f8bb83549023292c"
+                "ad7def4c9c8550a8"
             ]
         ]
     },
     {
-        "id": "073c5f69ebaafe54",
+        "id": "4696d4db91f8b5bb",
         "type": "function",
-        "z": "5beda5fc7aeb1538",
+        "z": "0de154f5c46225de",
         "name": "Split Weather Data",
-        "func": "// Check for errors\nif (!msg.payload || msg.payload.error) {\n    node.warn('API Error: ' + (msg.payload?.error || 'No data'));\n    return null;\n}\n\nconst data = msg.payload;\n\n// Store complete data\nflow.set('weatherData', data);\nflow.set('lastUpdate', new Date().toLocaleString());\n\n// Output 1: Current Weather Data\nlet currentMsg = {\n    payload: data.current_weather,\n    city: msg.city\n};\n\n// Output 2: Forecast Data\nlet forecastMsg = {\n    payload: data.forecast,\n    city: msg.city\n};\n\n// Output 3: Statistics for Historical\nlet statsMsg = {\n    payload: data.statistics,\n    currentWeather: data.current_weather,\n    city: msg.city\n};\n\nreturn [currentMsg, forecastMsg, statsMsg];",
+        "func": "// Check for errors\nif (!msg.payload || msg.payload.error) {\n    node.warn('API Error: ' + (msg.payload?.error || 'No data'));\n    return null;\n}\n\nconst data = msg.payload;\n\n// Store complete data\nflow.set('weatherData', data);\nflow.set('lastUpdate', new Date().toLocaleString());\n\n// Output 1: Current Weather Data\nlet currentMsg = {\n    payload: data.current_weather,\n    city: msg.city\n};\n\n// Output 2: Forecast Data\nlet forecastMsg = {\n    payload: data.forecast,\n    city: msg.city\n};\n\n// Output 3: Historical Data (From API)\nlet historyMsg = {\n    payload: data.historical,\n    city: msg.city\n};\n\nreturn [currentMsg, forecastMsg, historyMsg];",
         "outputs": 3,
         "noerr": 0,
         "initialize": "",
@@ -160,48 +337,48 @@
         "y": 460,
         "wires": [
             [
-                "683f5f7edcd1dc39",
-                "51c3ecfed6ddc3fc",
-                "d91cb88ded87852f",
-                "64fb92dbaa179f4e",
-                "a37b84b3ba24a76d",
-                "6254a699dd812f24",
-                "af27cdf0bc329698",
-                "a83c3055bf016b19"
+                "65ee19963d388818",
+                "9c06c9e4469c1c86",
+                "f24b0b0fa97dbc5f",
+                "743bc05ed457314f",
+                "f1f19c8f1f1869f4",
+                "17cecfed46221db6",
+                "6f30859a5e0ec958",
+                "f8d29618d7c5533f"
             ],
             [
-                "f934cf1d859cc681"
+                "04e0956b0d0fdce3"
             ],
             [
-                "bf0d6def7a59e5ff"
+                "b155849da4e5aa7f"
             ]
         ]
     },
     {
-        "id": "a37b84b3ba24a76d",
+        "id": "f1f19c8f1f1869f4",
         "type": "ui_template",
-        "z": "5beda5fc7aeb1538",
+        "z": "0de154f5c46225de",
         "group": "group1",
         "name": "Current Weather Card",
-        "order": 3,
-        "width": "6",
-        "height": "5",
-        "format": "<div style=\"padding: 15px; font-family: Arial; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 10px; color: white;\">\n    <div style=\"margin: 0 0 10px 0; font-size: 30px; font-weight: bold;\">{{msg.payload.location.city}}, {{msg.payload.location.country}}</div>\n    <div style=\"display: flex; align-items: center; margin: 15px 0;\">\n        <img src=\"http://openweathermap.org/img/wn/{{msg.payload.current.icon}}@2x.png\" style=\"width: 80px; height: 80px;\">\n        <div style=\"margin-left: 20px;\">\n            <div style=\"font-size: 42px; font-weight: bold;\">{{msg.payload.current.temperature}}°C</div>\n            <div style=\"font-size: 18px; text-transform: capitalize; opacity: 0.9;\">{{msg.payload.current.description}}</div>\n        </div>\n    </div>\n    <div style=\"display: grid; grid-template-columns: 1fr 1fr; gap: 10px; font-size: 14px;\">\n        <div><strong>Feels Like:</strong> {{msg.payload.current.feels_like}}°C</div>\n        <div><strong>Min/Max:</strong> {{msg.payload.current.temp_min}}° / {{msg.payload.current.temp_max}}°</div>\n        <div><strong>Sunrise:</strong> {{msg.payload.sunrise}}</div>\n        <div><strong>Sunset:</strong> {{msg.payload.sunset}}</div>\n    </div>\n    <div style=\"margin-top: 10px; font-size: 11px; opacity: 0.8;\">Updated: {{msg.payload.timestamp}}</div>\n</div>",
+        "order": 4,
+        "width": 8,
+        "height": 5,
+        "format": "<div style=\"padding: 15px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 16px; color: white; margin-bottom: 0px\">\n    <div style=\"margin: 0 0 10px 0; font-size: 24px; font-weight: bold;\">{{msg.payload.location.city}}, {{msg.payload.location.country}}</div>\n    <div style=\"display: flex; align-items: center; margin: 15px 0;\">\n        <img src=\"http://openweathermap.org/img/wn/{{msg.payload.current.icon}}@2x.png\" style=\"width: 80px; height: 80px;\">\n        <div style=\"margin-left: 20px;\">\n            <div style=\"font-size: 42px; font-weight: bold;\">{{msg.payload.current.temperature}}°C</div>\n            <div style=\"font-size: 16px; text-transform: capitalize; opacity: 0.9;\">{{msg.payload.current.description}}</div>\n        </div>\n    </div>\n    <div style=\"display: grid; grid-template-columns: 1fr 1fr; gap: 10px; font-size: 14px;\">\n        <div><strong>Feels Like:</strong> {{msg.payload.current.feels_like}}°C</div>\n        <div><strong>Min/Max:</strong> {{msg.payload.current.temp_min}}° / {{msg.payload.current.temp_max}}°</div>\n        <div><strong>Sunrise:</strong> {{msg.payload.sunrise}}</div>\n        <div><strong>Sunset:</strong> {{msg.payload.sunset}}</div>\n    </div>\n    <div style=\"margin-top: 10px; font-size: 11px; opacity: 0.8;\">Updated: {{msg.payload.timestamp}}</div>\n</div>",
         "storeOutMessages": false,
         "fwdInMessages": false,
         "resendOnRefresh": false,
         "templateScope": "local",
         "className": "",
-        "x": 1340,
+        "x": 1320,
         "y": 300,
         "wires": [
             []
         ]
     },
     {
-        "id": "64fb92dbaa179f4e",
+        "id": "743bc05ed457314f",
         "type": "function",
-        "z": "5beda5fc7aeb1538",
+        "z": "0de154f5c46225de",
         "name": "Extract Pressure",
         "func": "msg.payload = msg.payload.current.pressure;\nreturn msg;",
         "outputs": 1,
@@ -210,23 +387,23 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 1310,
+        "x": 1300,
         "y": 240,
         "wires": [
             [
-                "e9b1669a8c27a03f"
+                "f61fcea3c4e14d0e"
             ]
         ]
     },
     {
-        "id": "e9b1669a8c27a03f",
+        "id": "f61fcea3c4e14d0e",
         "type": "ui_gauge",
-        "z": "5beda5fc7aeb1538",
+        "z": "0de154f5c46225de",
         "name": "Pressure",
         "group": "group1",
-        "order": 7,
-        "width": "3",
-        "height": "3",
+        "order": 6,
+        "width": 4,
+        "height": 4,
         "gtype": "gage",
         "title": "Pressure",
         "label": "hPa",
@@ -247,14 +424,14 @@
         "wires": []
     },
     {
-        "id": "fd4fdff15b1d16a3",
+        "id": "71cc36c54922ac3f",
         "type": "ui_gauge",
-        "z": "5beda5fc7aeb1538",
+        "z": "0de154f5c46225de",
         "name": "Wind Speed",
         "group": "group1",
-        "order": 6,
-        "width": "3",
-        "height": "3",
+        "order": 9,
+        "width": 4,
+        "height": 4,
         "gtype": "gage",
         "title": "Wind Speed",
         "label": "m/s",
@@ -275,9 +452,9 @@
         "wires": []
     },
     {
-        "id": "d91cb88ded87852f",
+        "id": "f24b0b0fa97dbc5f",
         "type": "function",
-        "z": "5beda5fc7aeb1538",
+        "z": "0de154f5c46225de",
         "name": "Extract Wind Speed",
         "func": "msg.payload = (msg.payload.wind.speed * 3.6).toFixed(2);\nreturn msg;",
         "outputs": 1,
@@ -290,14 +467,14 @@
         "y": 180,
         "wires": [
             [
-                "fd4fdff15b1d16a3"
+                "71cc36c54922ac3f"
             ]
         ]
     },
     {
-        "id": "51c3ecfed6ddc3fc",
+        "id": "9c06c9e4469c1c86",
         "type": "function",
-        "z": "5beda5fc7aeb1538",
+        "z": "0de154f5c46225de",
         "name": "Extract Humidity",
         "func": "msg.payload = msg.payload.current.humidity;\nreturn msg;",
         "outputs": 1,
@@ -306,23 +483,23 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 1310,
+        "x": 1300,
         "y": 120,
         "wires": [
             [
-                "72b0156dcf77ca48"
+                "6619c7f590ac838e"
             ]
         ]
     },
     {
-        "id": "72b0156dcf77ca48",
+        "id": "6619c7f590ac838e",
         "type": "ui_gauge",
-        "z": "5beda5fc7aeb1538",
+        "z": "0de154f5c46225de",
         "name": "Humidity Gauge",
         "group": "group1",
-        "order": 5,
-        "width": "3",
-        "height": "3",
+        "order": 8,
+        "width": 4,
+        "height": 4,
         "gtype": "gage",
         "title": "Humidity",
         "label": "%",
@@ -343,14 +520,14 @@
         "wires": []
     },
     {
-        "id": "dc58e4bf4084ed3f",
+        "id": "796df4dbad95db03",
         "type": "ui_gauge",
-        "z": "5beda5fc7aeb1538",
+        "z": "0de154f5c46225de",
         "name": "Temperature Gauge",
         "group": "group1",
-        "order": 4,
-        "width": "3",
-        "height": "3",
+        "order": 7,
+        "width": 4,
+        "height": 4,
         "gtype": "gage",
         "title": "Temperature",
         "label": "°C",
@@ -371,9 +548,9 @@
         "wires": []
     },
     {
-        "id": "683f5f7edcd1dc39",
+        "id": "65ee19963d388818",
         "type": "function",
-        "z": "5beda5fc7aeb1538",
+        "z": "0de154f5c46225de",
         "name": "Extract Temperature",
         "func": "msg.payload = msg.payload.current.temperature;\nreturn msg;",
         "outputs": 1,
@@ -382,14 +559,14 @@
         "y": 60,
         "wires": [
             [
-                "dc58e4bf4084ed3f"
+                "796df4dbad95db03"
             ]
         ]
     },
     {
-        "id": "f934cf1d859cc681",
+        "id": "04e0956b0d0fdce3",
         "type": "function",
-        "z": "5beda5fc7aeb1538",
+        "z": "0de154f5c46225de",
         "name": "Pass Forecast Data",
         "func": "return msg;",
         "outputs": 1,
@@ -398,39 +575,38 @@
         "y": 600,
         "wires": [
             [
-                "fa545de0230115e9"
+                "f1b227bf8ef92d51"
             ]
         ]
     },
     {
-        "id": "fa545de0230115e9",
+        "id": "f1b227bf8ef92d51",
         "type": "ui_template",
-        "z": "5beda5fc7aeb1538",
+        "z": "0de154f5c46225de",
         "group": "0b0f3587ded3510d",
         "name": "Forecast Table",
         "order": 1,
-        "width": "12",
-        "height": "11",
-        "format": "<div style=\"padding: 10px;\">\n    <table style=\"width: 100%; border-collapse: collapse; font-family: Arial;\">\n        <thead>\n            <tr style=\"background-color: #1976d2; color: white;\">\n                <th style=\"padding: 12px; text-align: left;\">Date</th>\n                <th style=\"padding: 12px; text-align: center;\">Weather</th>\n                <th style=\"padding: 12px; text-align: center;\">Description</th>\n                <th style=\"padding: 12px; text-align: center;\">Temperature (°C)</th>\n            </tr>\n        </thead>\n        <tbody>\n            <tr ng-repeat=\"day in msg.payload.daily_summary\" style=\"border-bottom: 1px solid #ddd;\">\n                <td style=\"padding: 12px; font-weight: 500;\">{{day.date}}</td>\n                <td style=\"padding: 12px; text-align: center;\">\n                    <img src=\"http://openweathermap.org/img/wn/{{day.icon}}@2x.png\" style=\"width: 50px; height: 50px;\">\n                </td>\n                <td style=\"padding: 12px; text-align: center; text-transform: capitalize;\">{{day.description}}</td>\n                <td style=\"padding: 12px; text-align: center;\">\n                    <span style=\"color: #2196f3; font-weight: bold;\">{{day.temp_min}}°</span>\n                    <span style=\"margin: 0 5px;\">/</span>\n                    <span style=\"font-weight: bold;\">{{day.temp_avg}}°</span>\n                    <span style=\"margin: 0 5px;\">/</span>\n                    <span style=\"color: #f44336; font-weight: bold;\">{{day.temp_max}}°</span>\n                </td>\n            </tr>\n        </tbody>\n    </table>\n</div>",
+        "width": 18,
+        "height": 5,
+        "format": "<div style=\"padding: 10px;\">\n    <table style=\"width: 100%; border-collapse: collapse; font-family: Arial;\">\n        <thead>\n            <tr style=\"background-color: #1976d2; color: white;\">\n                <th style=\"padding: 12px; text-align: left;\">Date</th>\n                <th style=\"padding: 12px; text-align: center;\">Weather</th>\n                <th style=\"padding: 12px; text-align: center;\">Description</th>\n                <th style=\"padding: 12px; text-align: center;\">Temperature (°C)</th>\n            </tr>\n        </thead>\n        <tbody>\n            <tr ng-repeat=\"day in msg.payload.daily_summary\" style=\"border-bottom: 1px solid #ddd;\">\n                <td style=\"padding: 12px; font-weight: 500;\">{{day.date}}</td>\n                <td style=\"padding: 12px; text-align: center;\">\n                    <img src=\"http://openweathermap.org/img/wn/{{day.icon}}@2x.png\" style=\"width: 30px; height: 30px;\">\n                </td>\n                <td style=\"padding: 12px; text-align: center; text-transform: capitalize;\">{{day.description}}</td>\n                <td style=\"padding: 12px; text-align: center;\">\n                    <span style=\"color: #2196f3; font-weight: bold;\">{{day.temp_min}}°</span>\n                    <span style=\"margin: 0 5px;\">/</span>\n                    <span style=\"font-weight: bold;\">{{day.temp_avg}}°</span>\n                    <span style=\"margin: 0 5px;\">/</span>\n                    <span style=\"color: #f44336; font-weight: bold;\">{{day.temp_max}}°</span>\n                </td>\n            </tr>\n        </tbody>\n    </table>\n</div>",
         "storeOutMessages": false,
         "fwdInMessages": false,
         "resendOnRefresh": false,
         "templateScope": "local",
         "className": "",
-        "x": 1560,
+        "x": 1600,
         "y": 600,
         "wires": [
             []
         ]
     },
     {
-        "id": "bf0d6def7a59e5ff",
+        "id": "b155849da4e5aa7f",
         "type": "function",
-        "z": "5beda5fc7aeb1538",
-        "name": "Store Historical Data",
-        "func": "// Get historical data and last tracked city\nlet history = flow.get('weatherHistory') || [];\nlet lastCity = flow.get('lastTrackedCity') || null;\n\nconst currentWeather = msg.currentWeather;\nif (currentWeather && currentWeather.current) {\n    const timestamp = new Date();\n    const city = msg.city || 'Unknown';\n\n    // Check if city has changed - if so, reset history\n    if (lastCity && lastCity !== city) {\n        // Clear chart by sending empty array\n        let clearMsg = {\n            payload: [],\n            topic: 'Temperature'\n        };\n        node.send([clearMsg, null]);\n\n        // Reset history for new city\n        history = [];\n        node.warn(`City changed from ${lastCity} to ${city}. Resetting historical data.`);\n    }\n\n    // Update last tracked city\n    flow.set('lastTrackedCity', city);\n\n    const entry = {\n        timestamp: timestamp.getTime(),\n        datetime: timestamp.toLocaleString(),\n        city: city,\n        temperature: currentWeather.current.temperature,\n        humidity: currentWeather.current.humidity,\n        pressure: currentWeather.current.pressure,\n        wind_speed: currentWeather.wind.speed\n    };\n\n    history.push(entry);\n\n    // Keep last 100 entries total\n    history = history.slice(-100);\n\n    flow.set('weatherHistory', history);\n\n    // Filter history for current city only\n    const cityHistory = history.filter(h => h.city === city).slice(-20);\n\n    // Output 1: Chart data (formatted for ui_chart)\n    let chartMsg = {\n        payload: currentWeather.current.temperature,\n        topic: 'Temperature',\n        city: city\n    };\n\n    // Output 2: Stats data (array of history for current city)\n    let statsMsg = {\n        payload: cityHistory,\n        city: city\n    };\n\n    return [chartMsg, statsMsg];\n}\n\nreturn null;",
+        "z": "0de154f5c46225de",
+        "name": "Process History",
+        "func": "// Handle View Mode Selection\nif (msg.topic === 'viewMode') {\n    flow.set('historyViewMode', msg.payload);\n}\n\n// Handle New Data\nif (msg.payload && msg.payload.hourly) {\n    flow.set('historicalData', msg.payload);\n}\n\n// Get current state\nconst viewMode = flow.get('historyViewMode') || '7d';\nconst data = flow.get('historicalData');\nconst city = (msg.city) ? msg.city : (flow.get('currentCity') || 'Unknown');\n\nif (!data || !data.hourly) {\n    return null;\n}\n\nlet hourly = data.hourly;\n\n// Filter based on view mode\nif (viewMode === '24h') {\n    const oneDayAgo = new Date().getTime() - (24 * 60 * 60 * 1000);\n    hourly = hourly.filter(h => new Date(h.timestamp).getTime() > oneDayAgo);\n}\n\n// 1. Prepare Chart Data\n// Create array of {x, y} points\nconst points = hourly.map(h => {\n    return {\n        x: new Date(h.timestamp).getTime(),\n        y: h.temperature\n    };\n});\n\n// Chart payload\nlet chartMsg = {\n    payload: [{\n        series: [\"Temperature\"],\n        data: [points],\n        labels: [\"Temperature\"]\n    }],\n    topic: 'Temperature',\n    city: city\n};\n\n// 2. Prepare Stats Data\nlet statsMsg = {\n    payload: hourly,\n    city: city\n};\n\nreturn [chartMsg, statsMsg];",
         "outputs": 2,
-        "timeout": "",
         "noerr": 0,
         "initialize": "",
         "finalize": "",
@@ -439,27 +615,27 @@
         "y": 740,
         "wires": [
             [
-                "6dca180350d86545"
+                "d9b62948a1cb4b52"
             ],
             [
-                "595f9af0b798a583",
-                "6ea0abb4c4770ac2"
+                "9e0bf559b9f0e221",
+                "b5dcbb0e90ec11e6"
             ]
         ]
     },
     {
-        "id": "6dca180350d86545",
+        "id": "d9b62948a1cb4b52",
         "type": "ui_chart",
-        "z": "5beda5fc7aeb1538",
+        "z": "0de154f5c46225de",
         "name": "Historical Temperature Chart",
         "group": "caa6853f5a10dd4f",
-        "order": 1,
-        "width": "8",
-        "height": "10",
+        "order": 2,
+        "width": 13,
+        "height": 8,
         "label": "Temperature History",
         "chartType": "line",
         "legend": "false",
-        "xformat": "HH:mm",
+        "xformat": "DD/MM HH:mm",
         "interpolate": "linear",
         "nodata": "No historical data. Refresh multiple times to build history.",
         "dot": true,
@@ -485,16 +661,54 @@
         "outputs": 1,
         "useDifferentColor": false,
         "className": "",
-        "x": 1620,
+        "x": 1640,
         "y": 700,
         "wires": [
             []
         ]
     },
     {
-        "id": "595f9af0b798a583",
+        "id": "e0ca220ba4aee5f2",
+        "type": "ui_dropdown",
+        "z": "0de154f5c46225de",
+        "name": "Chart View",
+        "label": "View:",
+        "tooltip": "Select time range",
+        "place": "Select view",
+        "group": "caa6853f5a10dd4f",
+        "order": 1,
+        "width": 5,
+        "height": 1,
+        "passthru": true,
+        "multiple": false,
+        "options": [
+            {
+                "label": "Last 24 Hours",
+                "value": "24h",
+                "type": "str"
+            },
+            {
+                "label": "Last 7 Days",
+                "value": "7d",
+                "type": "str"
+            }
+        ],
+        "payload": "",
+        "topic": "viewMode",
+        "topicType": "str",
+        "className": "",
+        "x": 1100,
+        "y": 740,
+        "wires": [
+            [
+                "b155849da4e5aa7f"
+            ]
+        ]
+    },
+    {
+        "id": "9e0bf559b9f0e221",
         "type": "function",
-        "z": "5beda5fc7aeb1538",
+        "z": "0de154f5c46225de",
         "name": "Calculate Historical Stats",
         "func": "if (!msg.payload || msg.payload.length === 0) {\n    return null;\n}\n\nconst temps = msg.payload.map(e => e.temperature);\nconst humidities = msg.payload.map(e => e.humidity);\n\nmsg.payload = {\n    city: msg.city,\n    data_points: msg.payload.length,\n    temperature: {\n        avg: (temps.reduce((a, b) => a + b, 0) / temps.length).toFixed(1),\n        max: Math.max(...temps).toFixed(1),\n        min: Math.min(...temps).toFixed(1)\n    },\n    humidity: {\n        avg: (humidities.reduce((a, b) => a + b, 0) / humidities.length).toFixed(1)\n    }\n};\n\nreturn msg;",
         "outputs": 1,
@@ -503,46 +717,46 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 1610,
+        "x": 1630,
         "y": 760,
         "wires": [
             [
-                "8e752f480a6d4316"
+                "6f41588488d9e193"
             ]
         ]
     },
     {
-        "id": "8e752f480a6d4316",
+        "id": "6f41588488d9e193",
         "type": "ui_template",
-        "z": "5beda5fc7aeb1538",
+        "z": "0de154f5c46225de",
         "group": "caa6853f5a10dd4f",
         "name": "Historical Statistics",
-        "order": 2,
-        "width": "4",
-        "height": "10",
-        "format": "<div style=\"padding: 15px; font-family: Arial;\">\n    <h3 style=\"margin-top: 0; color: #1976d2;\">📊 Statistics</h3>\n    <div ng-if=\"msg.payload\">\n        <div style=\"margin-bottom: 15px; padding: 15px; background: #e3f2fd; border-radius: 8px; border-left: 4px solid #1976d2;\">\n            <div style=\"font-size: 12px; color: #666; margin-bottom: 5px;\">Average Temperature</div>\n            <div style=\"font-size: 28px; font-weight: bold; color: #1976d2;\">{{msg.payload.temperature.avg}}°C</div>\n        </div>\n        <div style=\"margin-bottom: 15px; padding: 15px; background: #fff3e0; border-radius: 8px; border-left: 4px solid #f57c00;\">\n            <div style=\"font-size: 12px; color: #666; margin-bottom: 5px;\">Maximum Temperature</div>\n            <div style=\"font-size: 28px; font-weight: bold; color: #f57c00;\">{{msg.payload.temperature.max}}°C</div>\n        </div>\n        <div style=\"margin-bottom: 15px; padding: 15px; background: #e0f2f1; border-radius: 8px; border-left: 4px solid #00796b;\">\n            <div style=\"font-size: 12px; color: #666; margin-bottom: 5px;\">Minimum Temperature</div>\n            <div style=\"font-size: 28px; font-weight: bold; color: #00796b;\">{{msg.payload.temperature.min}}°C</div>\n        </div>\n        <div style=\"padding: 15px; background: #f3e5f5; border-radius: 8px; border-left: 4px solid #7b1fa2;\">\n            <div style=\"font-size: 12px; color: #666; margin-bottom: 5px;\">Data Points</div>\n            <div style=\"font-size: 28px; font-weight: bold; color: #7b1fa2;\">{{msg.payload.data_points}}</div>\n        </div>\n    </div>\n    <div ng-if=\"!msg.payload\" style=\"color: #999; text-align: center; padding: 40px 20px;\">\n        <div style=\"font-size: 48px; margin-bottom: 10px;\">📊</div>\n        <div>No historical data yet</div>\n        <div style=\"font-size: 12px; margin-top: 5px;\">Refresh to collect data</div>\n    </div>\n</div>",
+        "order": 3,
+        "width": 5,
+        "height": 8,
+        "format": "<div style=\"margin-right:10px;\">\n    <h3 style=\"margin-bottom:6px;\">Statistics</h3>\n    <div ng-if=\"msg.payload\">\n        <div style=\"margin-bottom: 15px; padding: 10px 15px; background: #e3f2fd; border-radius: 8px; border-left: 4px solid #1976d2;\">\n            <div style=\"font-size: 12px; color: #666; margin-bottom: 5px;\">Average Temperature</div>\n            <div style=\"font-size: 24px; font-weight: bold; color: #1976d2;\">{{msg.payload.temperature.avg}}°C</div>\n        </div>\n        <div style=\"margin-bottom: 15px; padding: 10px 15px; background: #fff3e0; border-radius: 8px; border-left: 4px solid #f57c00;\">\n            <div style=\"font-size: 12px; color: #666; margin-bottom: 5px;\">Maximum Temperature</div>\n            <div style=\"font-size: 24px; font-weight: bold; color: #f57c00;\">{{msg.payload.temperature.max}}°C</div>\n        </div>\n        <div style=\"margin-bottom: 15px; padding: 10px 15px; background: #e0f2f1; border-radius: 8px; border-left: 4px solid #00796b;\">\n            <div style=\"font-size: 12px; color: #666; margin-bottom: 5px;\">Minimum Temperature</div>\n            <div style=\"font-size: 24px; font-weight: bold; color: #00796b;\">{{msg.payload.temperature.min}}°C</div>\n        </div>\n        <div style=\"padding: 10px 15px; background: #f3e5f5; border-radius: 8px; border-left: 4px solid #7b1fa2;\">\n            <div style=\"font-size: 12px; color: #666; margin-bottom: 5px;\">Data Points</div>\n            <div style=\"font-size: 24px; font-weight: bold; color: #7b1fa2;\">{{msg.payload.data_points}}</div>\n        </div>\n    </div>\n    <div ng-if=\"!msg.payload\" style=\"color: #999; text-align: center; padding: 40px 20px;\">\n        <div style=\"font-size: 48px; margin-bottom: 10px;\">📊</div>\n        <div>No historical data yet</div>\n        <div style=\"font-size: 12px; margin-top: 5px;\">Refresh to collect data</div>\n    </div>\n</div>",
         "storeOutMessages": false,
         "fwdInMessages": false,
         "resendOnRefresh": false,
         "templateScope": "local",
         "className": "",
-        "x": 1870,
+        "x": 1890,
         "y": 760,
         "wires": [
             []
         ]
     },
     {
-        "id": "1586be6408cbebb7",
+        "id": "d2c1189ae3fabdeb",
         "type": "ui_button",
-        "z": "5beda5fc7aeb1538",
+        "z": "0de154f5c46225de",
         "name": "Refresh Button",
         "group": "group1",
         "order": 2,
-        "width": "3",
-        "height": "1",
+        "width": 1,
+        "height": 1,
         "passthru": false,
-        "label": "Refresh",
+        "label": "",
         "tooltip": "Refresh weather data",
         "color": "",
         "bgcolor": "",
@@ -556,31 +770,31 @@
         "y": 480,
         "wires": [
             [
-                "f8bb83549023292c"
+                "ad7def4c9c8550a8"
             ]
         ]
     },
     {
-        "id": "76aabefe80ae47bd",
+        "id": "4fb9e96ff509ef71",
         "type": "file",
-        "z": "5beda5fc7aeb1538",
+        "z": "0de154f5c46225de",
         "name": "Write CSV file",
-        "filename": "C:\\Users\\Asus\\OneDrive - Universiti Sains Malaysia\\usm\\Course\\y3\\CPT316\\assignment2\\weather_history.csv",
+        "filename": "weather_history.csv",
         "filenameType": "str",
         "appendNewline": true,
         "createDir": false,
         "overwriteFile": "false",
         "encoding": "utf8",
-        "x": 1820,
+        "x": 1880,
         "y": 820,
         "wires": [
             []
         ]
     },
     {
-        "id": "6ea0abb4c4770ac2",
+        "id": "b5dcbb0e90ec11e6",
         "type": "function",
-        "z": "5beda5fc7aeb1538",
+        "z": "0de154f5c46225de",
         "name": "Format CSV",
         "func": "// Get the stored weather data\nconst weatherData = flow.get('weatherData');\n\nif (!weatherData || !weatherData.current_weather) {\n    return null;\n}\n\nconst current = weatherData.current_weather.current;\nconst wind = weatherData.current_weather.wind;\n\nconst entry = {\n    timestamp: new Date().getTime(),\n    datetime: new Date().toLocaleString(),\n    city: msg.city || 'Unknown',\n    temperature: current.temperature,\n    humidity: current.humidity,\n    pressure: current.pressure,\n    wind_speed: wind.speed\n};\n\nmsg.payload = `${entry.timestamp},\"${entry.datetime}\",${entry.city},${entry.temperature},${entry.humidity},${entry.pressure},${entry.wind_speed}`;\n\nreturn msg;",
         "outputs": 1,
@@ -593,14 +807,14 @@
         "y": 820,
         "wires": [
             [
-                "76aabefe80ae47bd"
+                "4fb9e96ff509ef71"
             ]
         ]
     },
     {
-        "id": "6254a699dd812f24",
+        "id": "17cecfed46221db6",
         "type": "function",
-        "z": "5beda5fc7aeb1538",
+        "z": "0de154f5c46225de",
         "name": "check temperature",
         "func": "const temp = msg.payload.current.temperature;\nconst city = msg.city || 'Unknown';\n\n// Define thresholds\nconst highTempThreshold = 35;\nconst lowTempThreshold = 0;\n\nif (temp >= highTempThreshold) {\n    msg.payload = `High Temperature Alert: ${temp}°C in ${city}!`;\n    msg.topic = 'warning';\n    return msg;\n} else if (temp <= lowTempThreshold) {\n    msg.payload = `Low Temperature Alert: ${temp}°C in ${city}!`;\n    msg.topic = 'warning';\n    return msg;\n}\n\nreturn null;",
         "outputs": 1,
@@ -609,18 +823,18 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 1320,
+        "x": 1310,
         "y": 380,
         "wires": [
             [
-                "edccb7ae832a4758"
+                "61b2eae29fe63f2b"
             ]
         ]
     },
     {
-        "id": "af27cdf0bc329698",
+        "id": "6f30859a5e0ec958",
         "type": "function",
-        "z": "5beda5fc7aeb1538",
+        "z": "0de154f5c46225de",
         "name": "check humidity",
         "func": "const humidity = msg.payload.current.humidity;\nconst city = msg.city || 'Unknown';\n\n// Define thresholds\nconst highHumidityThreshold = 80;\nconst lowHumidityThreshold = 30;\n\nif (humidity >= highHumidityThreshold) {\n    msg.payload = `High Humidity Alert: ${humidity}% in ${city}!`;\n    msg.topic = 'info';\n    return msg;\n} else if (humidity <= lowHumidityThreshold) {\n    msg.payload = `Low Humidity Alert: ${humidity}% in ${city}!`;\n    msg.topic = 'info';\n    return msg;\n}\n\nreturn null;",
         "outputs": 1,
@@ -629,18 +843,18 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 1310,
+        "x": 1300,
         "y": 440,
         "wires": [
             [
-                "910403597128de60"
+                "9e3f804e770fc2a1"
             ]
         ]
     },
     {
-        "id": "a83c3055bf016b19",
+        "id": "f8d29618d7c5533f",
         "type": "function",
-        "z": "5beda5fc7aeb1538",
+        "z": "0de154f5c46225de",
         "name": "check extreme weather",
         "func": "const description = msg.payload.current.description.toLowerCase();\nconst city = msg.city || 'Unknown';\n\n// Check for extreme weather conditions\nconst extremeConditions = ['thunderstorm', 'heavy rain', 'snow', 'tornado', 'hurricane'];\n\nfor (let condition of extremeConditions) {\n    if (description.includes(condition)) {\n        msg.payload = `EXTREME WEATHER ALERT: ${description} in ${city}!`;\n        msg.topic = 'error';\n        return msg;\n    }\n}\n\nreturn null;",
         "outputs": 1,
@@ -649,18 +863,18 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 1340,
+        "x": 1330,
         "y": 500,
         "wires": [
             [
-                "af8a3b2f46f560a2"
+                "70bfb265af94a1ee"
             ]
         ]
     },
     {
-        "id": "edccb7ae832a4758",
+        "id": "61b2eae29fe63f2b",
         "type": "ui_toast",
-        "z": "5beda5fc7aeb1538",
+        "z": "0de154f5c46225de",
         "position": "top right",
         "displayTime": "5",
         "highlight": "",
@@ -672,14 +886,14 @@
         "className": "",
         "topic": "",
         "name": "temperature alert",
-        "x": 1620,
+        "x": 1610,
         "y": 380,
         "wires": []
     },
     {
-        "id": "910403597128de60",
+        "id": "9e3f804e770fc2a1",
         "type": "ui_toast",
-        "z": "5beda5fc7aeb1538",
+        "z": "0de154f5c46225de",
         "position": "top right",
         "displayTime": "5",
         "highlight": "",
@@ -691,14 +905,14 @@
         "className": "",
         "topic": "",
         "name": "humidity alert",
-        "x": 1600,
+        "x": 1590,
         "y": 440,
         "wires": []
     },
     {
-        "id": "af8a3b2f46f560a2",
+        "id": "70bfb265af94a1ee",
         "type": "ui_toast",
-        "z": "5beda5fc7aeb1538",
+        "z": "0de154f5c46225de",
         "position": "top right",
         "displayTime": "5",
         "highlight": "",
@@ -710,58 +924,8 @@
         "className": "",
         "topic": "",
         "name": "exterme weather alert",
-        "x": 1630,
+        "x": 1620,
         "y": 500,
         "wires": []
-    },
-    {
-        "id": "group1",
-        "type": "ui_group",
-        "name": "Current",
-        "tab": "tab1",
-        "order": 1,
-        "disp": true,
-        "width": "6",
-        "collapse": false,
-        "className": ""
-    },
-    {
-        "id": "0b0f3587ded3510d",
-        "type": "ui_group",
-        "name": "Forecast",
-        "tab": "tab1",
-        "order": 2,
-        "disp": true,
-        "width": "12",
-        "collapse": false,
-        "className": ""
-    },
-    {
-        "id": "caa6853f5a10dd4f",
-        "type": "ui_group",
-        "name": "Historical",
-        "tab": "tab1",
-        "order": 3,
-        "disp": true,
-        "width": "12",
-        "collapse": false,
-        "className": ""
-    },
-    {
-        "id": "tab1",
-        "type": "ui_tab",
-        "name": "CPT316 Weather Dashboard",
-        "icon": "dashboard",
-        "order": 1,
-        "disabled": false,
-        "hidden": false
-    },
-    {
-        "id": "c7b0fb3037214ad5",
-        "type": "global-config",
-        "env": [],
-        "modules": {
-            "node-red-dashboard": "3.6.6"
-        }
     }
 ]

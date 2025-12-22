@@ -1,8 +1,7 @@
 import requests
-from datetime import datetime
+from datetime import datetime, timedelta
 from typing import Dict, List, Optional
 import json
-
 
 class WeatherAPIBase:
     """
@@ -64,6 +63,39 @@ class OpenWeatherMapService(WeatherAPIBase):
             'units': units
         }
         return self._make_request("/weather", params)
+
+
+class OpenMeteoService:
+    """
+    Open-Meteo API implementation for historical data (No API Key required)
+    """
+    def __init__(self):
+        self._base_url = "https://archive-api.open-meteo.com/v1/archive"
+    
+    def get_historical_weather(self, lat: float, lon: float, days: int = 7) -> Optional[Dict]:
+        """
+        Fetch historical weather data for the last N days
+        """
+        end_date = datetime.now()
+        start_date = end_date - timedelta(days=days)
+        
+        params = {
+            'latitude': lat,
+            'longitude': lon,
+            'start_date': start_date.strftime('%Y-%m-%d'),
+            'end_date': end_date.strftime('%Y-%m-%d'),
+            'hourly': 'temperature_2m,relative_humidity_2m,pressure_msl,wind_speed_10m',
+            'daily': 'temperature_2m_max,temperature_2m_min,temperature_2m_mean',
+            'timezone': 'auto'
+        }
+        
+        try:
+            response = requests.get(self._base_url, params=params, timeout=10)
+            response.raise_for_status()
+            return response.json()
+        except requests.exceptions.RequestException as e:
+            print(f"OpenMeteo API Error: {e}")
+            return None
 
 
 class WeatherData:
@@ -241,6 +273,50 @@ class DataProcessor:
             "avg_humidity": round(sum(humidity_values) / len(humidity_values), 1),
             "total_data_points": len(forecast_data)
         }
+    
+    @staticmethod
+    def process_historical_weather(raw_data: Dict) -> Dict:
+        """
+        Process historical weather data
+        """
+        if not raw_data or 'hourly' not in raw_data:
+            return {"error": "No historical data available"}
+        
+        hourly = raw_data['hourly']
+        times = hourly['time']
+        temps = hourly['temperature_2m']
+        humidities = hourly['relative_humidity_2m']
+        pressures = hourly['pressure_msl']
+        winds = hourly['wind_speed_10m']
+        
+        history_points = []
+        for i in range(len(times)):
+            history_points.append({
+                "timestamp": times[i], # ISO format in OpenMeteo
+                "temperature": temps[i],
+                "humidity": humidities[i],
+                "pressure": pressures[i],
+                "wind_speed": winds[i]
+            })
+            
+        # Daily aggregation
+        daily = raw_data.get('daily', {})
+        daily_summary = []
+        if 'time' in daily:
+            for i in range(len(daily['time'])):
+                daily_summary.append({
+                    "date": daily['time'][i],
+                    "max_temp": daily['temperature_2m_max'][i],
+                    "min_temp": daily['temperature_2m_min'][i],
+                    "avg_temp": daily['temperature_2m_mean'][i]
+                })
+
+        return {
+            "hourly": history_points,
+            "daily": daily_summary,
+            "latitude": raw_data.get('latitude'),
+            "longitude": raw_data.get('longitude')
+        }
 
 
 class WeatherCache:
@@ -276,6 +352,7 @@ class WeatherManager:
     """
     def __init__(self, api_key: str):
         self.weather_service = OpenWeatherMapService(api_key)
+        self.open_meteo_service = OpenMeteoService()
         self.data_processor = DataProcessor()
         self.cache = WeatherCache()
     
@@ -330,10 +407,20 @@ class WeatherManager:
                 forecast['forecast_3h']
             )
         
+        # Get historical data (requires coordinates from current weather)
+        historical = {}
+        if 'location' in current and 'coordinates' in current['location']:
+            coords = current['location']['coordinates']
+            raw_history = self.open_meteo_service.get_historical_weather(
+                coords['lat'], coords['lon']
+            )
+            historical = self.data_processor.process_historical_weather(raw_history)
+        
         return {
             "current_weather": current,
             "forecast": forecast,
-            "statistics": statistics
+            "statistics": statistics,
+            "historical": historical
         }
 
 
