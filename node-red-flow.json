@@ -1,6 +1,6 @@
 [
     {
-        "id": "0de154f5c46225de",
+        "id": "7a2819d05f5f4e5c",
         "type": "tab",
         "label": "CPT316_Weather",
         "disabled": false,
@@ -8,186 +8,9 @@
         "env": []
     },
     {
-        "id": "tab1",
-        "type": "ui_tab",
-        "name": "CPT316 Weather Dashboard",
-        "icon": "dashboard",
-        "order": 1,
-        "disabled": false,
-        "hidden": false
-    },
-    {
-        "id": "d0d8d306278e392a",
-        "type": "global-config",
-        "env": [],
-        "modules": {
-            "node-red-dashboard": "3.6.6"
-        }
-    },
-    {
-        "id": "group1",
-        "type": "ui_group",
-        "name": "Current Weather",
-        "tab": "tab1",
-        "order": 2,
-        "disp": false,
-        "width": 8,
-        "collapse": false,
-        "className": ""
-    },
-    {
-        "id": "0b0f3587ded3510d",
-        "type": "ui_group",
-        "name": "Weather Forecast",
-        "tab": "tab1",
-        "order": 3,
-        "disp": true,
-        "width": 18,
-        "collapse": true,
-        "className": ""
-    },
-    {
-        "id": "caa6853f5a10dd4f",
-        "type": "ui_group",
-        "name": "Historical",
-        "tab": "tab1",
-        "order": 4,
-        "disp": true,
-        "width": 18,
-        "collapse": false,
-        "className": ""
-    },
-    {
-        "id": "dd5286d510858e2e",
-        "type": "ui_base",
-        "theme": {
-            "name": "theme-light",
-            "lightTheme": {
-                "default": "#0094CE",
-                "baseColor": "#0094CE",
-                "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif",
-                "edited": true,
-                "reset": false
-            },
-            "darkTheme": {
-                "default": "#097479",
-                "baseColor": "#097479",
-                "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif",
-                "edited": false
-            },
-            "customTheme": {
-                "name": "Untitled Theme 1",
-                "default": "#4B7930",
-                "baseColor": "#4B7930",
-                "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif"
-            },
-            "themeState": {
-                "base-color": {
-                    "default": "#0094CE",
-                    "value": "#0094CE",
-                    "edited": false
-                },
-                "page-titlebar-backgroundColor": {
-                    "value": "#0094CE",
-                    "edited": false
-                },
-                "page-backgroundColor": {
-                    "value": "#fafafa",
-                    "edited": false
-                },
-                "page-sidebar-backgroundColor": {
-                    "value": "#ffffff",
-                    "edited": false
-                },
-                "group-textColor": {
-                    "value": "#1bbfff",
-                    "edited": false
-                },
-                "group-borderColor": {
-                    "value": "#ffffff",
-                    "edited": false
-                },
-                "group-backgroundColor": {
-                    "value": "#ffffff",
-                    "edited": false
-                },
-                "widget-textColor": {
-                    "value": "#111111",
-                    "edited": false
-                },
-                "widget-backgroundColor": {
-                    "value": "#0094ce",
-                    "edited": false
-                },
-                "widget-borderColor": {
-                    "value": "#ffffff",
-                    "edited": false
-                },
-                "base-font": {
-                    "value": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif"
-                }
-            },
-            "angularTheme": {
-                "primary": "indigo",
-                "accents": "blue",
-                "warn": "red",
-                "background": "grey",
-                "palette": "light"
-            }
-        },
-        "site": {
-            "name": "Node-RED Dashboard",
-            "hideToolbar": "false",
-            "allowSwipe": "false",
-            "lockMenu": "false",
-            "allowTempTheme": "true",
-            "dateFormat": "DD/MM/YYYY",
-            "sizes": {
-                "sx": 48,
-                "sy": 48,
-                "gx": 6,
-                "gy": 6,
-                "cx": 6,
-                "cy": 6,
-                "px": 0,
-                "py": 0
-            }
-        }
-    },
-    {
-        "id": "a0327e6cf4c38204",
-        "type": "ui_spacer",
-        "z": "0de154f5c46225de",
-        "name": "spacer",
-        "group": "group1",
-        "order": 3,
-        "width": 1,
-        "height": 1
-    },
-    {
-        "id": "8a8523b7c570cef6",
-        "type": "ui_spacer",
-        "z": "0de154f5c46225de",
-        "name": "spacer",
-        "group": "group1",
-        "order": 5,
-        "width": 8,
-        "height": 1
-    },
-    {
-        "id": "2b8f60d40a0bb3fd",
-        "type": "ui_spacer",
-        "z": "0de154f5c46225de",
-        "name": "spacer",
-        "group": "caa6853f5a10dd4f",
-        "order": 4,
-        "width": 13,
-        "height": 1
-    },
-    {
-        "id": "c492396fd2830a1a",
+        "id": "b48d176d50e735f1",
         "type": "inject",
-        "z": "0de154f5c46225de",
+        "z": "7a2819d05f5f4e5c",
         "name": "Get Weather (Default: Penang)",
         "props": [
             {
@@ -205,14 +28,14 @@
         "y": 360,
         "wires": [
             [
-                "ad7def4c9c8550a8"
+                "ed58d49fcf353e51"
             ]
         ]
     },
     {
-        "id": "ad7def4c9c8550a8",
+        "id": "ed58d49fcf353e51",
         "type": "function",
-        "z": "0de154f5c46225de",
+        "z": "7a2819d05f5f4e5c",
         "name": "Build URL",
         "func": "// Get city from input, stored city, or default\nlet city = msg.payload;\n\n// If payload is \"refresh\" or empty, use stored city\nif (!city || city === \"refresh\" || city.trim() === \"\") {\n    city = flow.get('currentCity') || 'Penang';\n}\n\n// Store current city\nflow.set('currentCity', city);\n\n// Build API URL\nmsg.url = `http://127.0.0.1:5000/api/weather/complete?city=${encodeURIComponent(city)}`;\nmsg.city = city;\n\nreturn msg;",
         "outputs": 1,
@@ -225,14 +48,14 @@
         "y": 460,
         "wires": [
             [
-                "bdf4f76a44748cdf"
+                "207583ef09bab16c"
             ]
         ]
     },
     {
-        "id": "bdf4f76a44748cdf",
+        "id": "207583ef09bab16c",
         "type": "http request",
-        "z": "0de154f5c46225de",
+        "z": "7a2819d05f5f4e5c",
         "name": "Get Weather",
         "method": "GET",
         "ret": "obj",
@@ -249,15 +72,15 @@
         "y": 460,
         "wires": [
             [
-                "4696d4db91f8b5bb",
-                "c4f2fe1b45d068c4"
+                "a9870e3d278cab60",
+                "5ae621f9e8a7636f"
             ]
         ]
     },
     {
-        "id": "c4f2fe1b45d068c4",
+        "id": "5ae621f9e8a7636f",
         "type": "debug",
-        "z": "0de154f5c46225de",
+        "z": "7a2819d05f5f4e5c",
         "name": "Full Response",
         "active": true,
         "tosidebar": true,
@@ -272,9 +95,9 @@
         "wires": []
     },
     {
-        "id": "707da491182989cb",
+        "id": "a837bf56b5c35a8b",
         "type": "ui_text_input",
-        "z": "0de154f5c46225de",
+        "z": "7a2819d05f5f4e5c",
         "name": "City Input",
         "label": "Search For City",
         "tooltip": "Enter city name (e.g., Tokyo, Kuala Lumpur)",
@@ -293,14 +116,14 @@
         "y": 420,
         "wires": [
             [
-                "ad7def4c9c8550a8"
+                "ed58d49fcf353e51"
             ]
         ]
     },
     {
-        "id": "032846f063efed3b",
+        "id": "19d202e01ee15860",
         "type": "inject",
-        "z": "0de154f5c46225de",
+        "z": "7a2819d05f5f4e5c",
         "name": "Auto Refresh (15 min)",
         "props": [
             {
@@ -318,14 +141,14 @@
         "y": 540,
         "wires": [
             [
-                "ad7def4c9c8550a8"
+                "ed58d49fcf353e51"
             ]
         ]
     },
     {
-        "id": "4696d4db91f8b5bb",
+        "id": "a9870e3d278cab60",
         "type": "function",
-        "z": "0de154f5c46225de",
+        "z": "7a2819d05f5f4e5c",
         "name": "Split Weather Data",
         "func": "// Check for errors\nif (!msg.payload || msg.payload.error) {\n    node.warn('API Error: ' + (msg.payload?.error || 'No data'));\n    return null;\n}\n\nconst data = msg.payload;\n\n// Store complete data\nflow.set('weatherData', data);\nflow.set('lastUpdate', new Date().toLocaleString());\n\n// Output 1: Current Weather Data\nlet currentMsg = {\n    payload: data.current_weather,\n    city: msg.city\n};\n\n// Output 2: Forecast Data\nlet forecastMsg = {\n    payload: data.forecast,\n    city: msg.city\n};\n\n// Output 3: Historical Data (From API)\nlet historyMsg = {\n    payload: data.historical,\n    city: msg.city\n};\n\nreturn [currentMsg, forecastMsg, historyMsg];",
         "outputs": 3,
@@ -337,27 +160,27 @@
         "y": 460,
         "wires": [
             [
-                "65ee19963d388818",
-                "9c06c9e4469c1c86",
-                "f24b0b0fa97dbc5f",
-                "743bc05ed457314f",
-                "f1f19c8f1f1869f4",
-                "17cecfed46221db6",
-                "6f30859a5e0ec958",
-                "f8d29618d7c5533f"
+                "18a937c0f4acf10c",
+                "87f013b102254be1",
+                "6eb7d42919f7f42d",
+                "93749af0e14fbe15",
+                "44cbd0777b1d6315",
+                "ba9f609aa3277cf1",
+                "721c3cb65b3f2a08",
+                "a04da0b2e456eb23"
             ],
             [
-                "04e0956b0d0fdce3"
+                "99411b23484bd879"
             ],
             [
-                "b155849da4e5aa7f"
+                "de43f86e248895ca"
             ]
         ]
     },
     {
-        "id": "f1f19c8f1f1869f4",
+        "id": "44cbd0777b1d6315",
         "type": "ui_template",
-        "z": "0de154f5c46225de",
+        "z": "7a2819d05f5f4e5c",
         "group": "group1",
         "name": "Current Weather Card",
         "order": 4,
@@ -376,9 +199,9 @@
         ]
     },
     {
-        "id": "743bc05ed457314f",
+        "id": "93749af0e14fbe15",
         "type": "function",
-        "z": "0de154f5c46225de",
+        "z": "7a2819d05f5f4e5c",
         "name": "Extract Pressure",
         "func": "msg.payload = msg.payload.current.pressure;\nreturn msg;",
         "outputs": 1,
@@ -391,14 +214,14 @@
         "y": 240,
         "wires": [
             [
-                "f61fcea3c4e14d0e"
+                "0e481222e49f0995"
             ]
         ]
     },
     {
-        "id": "f61fcea3c4e14d0e",
+        "id": "0e481222e49f0995",
         "type": "ui_gauge",
-        "z": "0de154f5c46225de",
+        "z": "7a2819d05f5f4e5c",
         "name": "Pressure",
         "group": "group1",
         "order": 6,
@@ -424,9 +247,9 @@
         "wires": []
     },
     {
-        "id": "71cc36c54922ac3f",
+        "id": "728c0911fdb6e745",
         "type": "ui_gauge",
-        "z": "0de154f5c46225de",
+        "z": "7a2819d05f5f4e5c",
         "name": "Wind Speed",
         "group": "group1",
         "order": 9,
@@ -452,9 +275,9 @@
         "wires": []
     },
     {
-        "id": "f24b0b0fa97dbc5f",
+        "id": "6eb7d42919f7f42d",
         "type": "function",
-        "z": "0de154f5c46225de",
+        "z": "7a2819d05f5f4e5c",
         "name": "Extract Wind Speed",
         "func": "msg.payload = (msg.payload.wind.speed * 3.6).toFixed(2);\nreturn msg;",
         "outputs": 1,
@@ -467,14 +290,14 @@
         "y": 180,
         "wires": [
             [
-                "71cc36c54922ac3f"
+                "728c0911fdb6e745"
             ]
         ]
     },
     {
-        "id": "9c06c9e4469c1c86",
+        "id": "87f013b102254be1",
         "type": "function",
-        "z": "0de154f5c46225de",
+        "z": "7a2819d05f5f4e5c",
         "name": "Extract Humidity",
         "func": "msg.payload = msg.payload.current.humidity;\nreturn msg;",
         "outputs": 1,
@@ -487,14 +310,14 @@
         "y": 120,
         "wires": [
             [
-                "6619c7f590ac838e"
+                "38e80caa1456917f"
             ]
         ]
     },
     {
-        "id": "6619c7f590ac838e",
+        "id": "38e80caa1456917f",
         "type": "ui_gauge",
-        "z": "0de154f5c46225de",
+        "z": "7a2819d05f5f4e5c",
         "name": "Humidity Gauge",
         "group": "group1",
         "order": 8,
@@ -520,9 +343,9 @@
         "wires": []
     },
     {
-        "id": "796df4dbad95db03",
+        "id": "cbbc4fb4167d26c2",
         "type": "ui_gauge",
-        "z": "0de154f5c46225de",
+        "z": "7a2819d05f5f4e5c",
         "name": "Temperature Gauge",
         "group": "group1",
         "order": 7,
@@ -548,9 +371,9 @@
         "wires": []
     },
     {
-        "id": "65ee19963d388818",
+        "id": "18a937c0f4acf10c",
         "type": "function",
-        "z": "0de154f5c46225de",
+        "z": "7a2819d05f5f4e5c",
         "name": "Extract Temperature",
         "func": "msg.payload = msg.payload.current.temperature;\nreturn msg;",
         "outputs": 1,
@@ -559,14 +382,14 @@
         "y": 60,
         "wires": [
             [
-                "796df4dbad95db03"
+                "cbbc4fb4167d26c2"
             ]
         ]
     },
     {
-        "id": "04e0956b0d0fdce3",
+        "id": "99411b23484bd879",
         "type": "function",
-        "z": "0de154f5c46225de",
+        "z": "7a2819d05f5f4e5c",
         "name": "Pass Forecast Data",
         "func": "return msg;",
         "outputs": 1,
@@ -575,14 +398,14 @@
         "y": 600,
         "wires": [
             [
-                "f1b227bf8ef92d51"
+                "a0ade04e8ab0b490"
             ]
         ]
     },
     {
-        "id": "f1b227bf8ef92d51",
+        "id": "a0ade04e8ab0b490",
         "type": "ui_template",
-        "z": "0de154f5c46225de",
+        "z": "7a2819d05f5f4e5c",
         "group": "0b0f3587ded3510d",
         "name": "Forecast Table",
         "order": 1,
@@ -601,9 +424,9 @@
         ]
     },
     {
-        "id": "b155849da4e5aa7f",
+        "id": "de43f86e248895ca",
         "type": "function",
-        "z": "0de154f5c46225de",
+        "z": "7a2819d05f5f4e5c",
         "name": "Process History",
         "func": "// Handle View Mode Selection\nif (msg.topic === 'viewMode') {\n    flow.set('historyViewMode', msg.payload);\n}\n\n// Handle New Data\nif (msg.payload && msg.payload.hourly) {\n    flow.set('historicalData', msg.payload);\n}\n\n// Get current state\nconst viewMode = flow.get('historyViewMode') || '7d';\nconst data = flow.get('historicalData');\nconst city = (msg.city) ? msg.city : (flow.get('currentCity') || 'Unknown');\n\nif (!data || !data.hourly) {\n    return null;\n}\n\nlet hourly = data.hourly;\n\n// Filter based on view mode\nif (viewMode === '24h') {\n    const oneDayAgo = new Date().getTime() - (24 * 60 * 60 * 1000);\n    hourly = hourly.filter(h => new Date(h.timestamp).getTime() > oneDayAgo);\n}\n\n// 1. Prepare Chart Data\n// Create array of {x, y} points\nconst points = hourly.map(h => {\n    return {\n        x: new Date(h.timestamp).getTime(),\n        y: h.temperature\n    };\n});\n\n// Chart payload\nlet chartMsg = {\n    payload: [{\n        series: [\"Temperature\"],\n        data: [points],\n        labels: [\"Temperature\"]\n    }],\n    topic: 'Temperature',\n    city: city\n};\n\n// 2. Prepare Stats Data\nlet statsMsg = {\n    payload: hourly,\n    city: city\n};\n\nreturn [chartMsg, statsMsg];",
         "outputs": 2,
@@ -615,18 +438,18 @@
         "y": 740,
         "wires": [
             [
-                "d9b62948a1cb4b52"
+                "60f37360a80f3b07"
             ],
             [
-                "9e0bf559b9f0e221",
-                "b5dcbb0e90ec11e6"
+                "b3f25e75f324f885",
+                "7d9756ce623928a9"
             ]
         ]
     },
     {
-        "id": "d9b62948a1cb4b52",
+        "id": "60f37360a80f3b07",
         "type": "ui_chart",
-        "z": "0de154f5c46225de",
+        "z": "7a2819d05f5f4e5c",
         "name": "Historical Temperature Chart",
         "group": "caa6853f5a10dd4f",
         "order": 2,
@@ -668,9 +491,9 @@
         ]
     },
     {
-        "id": "e0ca220ba4aee5f2",
+        "id": "426cd1e33ef0452b",
         "type": "ui_dropdown",
-        "z": "0de154f5c46225de",
+        "z": "7a2819d05f5f4e5c",
         "name": "Chart View",
         "label": "View:",
         "tooltip": "Select time range",
@@ -701,14 +524,14 @@
         "y": 740,
         "wires": [
             [
-                "b155849da4e5aa7f"
+                "de43f86e248895ca"
             ]
         ]
     },
     {
-        "id": "9e0bf559b9f0e221",
+        "id": "b3f25e75f324f885",
         "type": "function",
-        "z": "0de154f5c46225de",
+        "z": "7a2819d05f5f4e5c",
         "name": "Calculate Historical Stats",
         "func": "if (!msg.payload || msg.payload.length === 0) {\n    return null;\n}\n\nconst temps = msg.payload.map(e => e.temperature);\nconst humidities = msg.payload.map(e => e.humidity);\n\nmsg.payload = {\n    city: msg.city,\n    data_points: msg.payload.length,\n    temperature: {\n        avg: (temps.reduce((a, b) => a + b, 0) / temps.length).toFixed(1),\n        max: Math.max(...temps).toFixed(1),\n        min: Math.min(...temps).toFixed(1)\n    },\n    humidity: {\n        avg: (humidities.reduce((a, b) => a + b, 0) / humidities.length).toFixed(1)\n    }\n};\n\nreturn msg;",
         "outputs": 1,
@@ -721,20 +544,20 @@
         "y": 760,
         "wires": [
             [
-                "6f41588488d9e193"
+                "2364cbe273584ca9"
             ]
         ]
     },
     {
-        "id": "6f41588488d9e193",
+        "id": "2364cbe273584ca9",
         "type": "ui_template",
-        "z": "0de154f5c46225de",
+        "z": "7a2819d05f5f4e5c",
         "group": "caa6853f5a10dd4f",
         "name": "Historical Statistics",
         "order": 3,
         "width": 5,
         "height": 8,
-        "format": "<div style=\"margin-right:10px;\">\n    <h3 style=\"margin-bottom:6px;\">Statistics</h3>\n    <div ng-if=\"msg.payload\">\n        <div style=\"margin-bottom: 15px; padding: 10px 15px; background: #e3f2fd; border-radius: 8px; border-left: 4px solid #1976d2;\">\n            <div style=\"font-size: 12px; color: #666; margin-bottom: 5px;\">Average Temperature</div>\n            <div style=\"font-size: 24px; font-weight: bold; color: #1976d2;\">{{msg.payload.temperature.avg}}°C</div>\n        </div>\n        <div style=\"margin-bottom: 15px; padding: 10px 15px; background: #fff3e0; border-radius: 8px; border-left: 4px solid #f57c00;\">\n            <div style=\"font-size: 12px; color: #666; margin-bottom: 5px;\">Maximum Temperature</div>\n            <div style=\"font-size: 24px; font-weight: bold; color: #f57c00;\">{{msg.payload.temperature.max}}°C</div>\n        </div>\n        <div style=\"margin-bottom: 15px; padding: 10px 15px; background: #e0f2f1; border-radius: 8px; border-left: 4px solid #00796b;\">\n            <div style=\"font-size: 12px; color: #666; margin-bottom: 5px;\">Minimum Temperature</div>\n            <div style=\"font-size: 24px; font-weight: bold; color: #00796b;\">{{msg.payload.temperature.min}}°C</div>\n        </div>\n        <div style=\"padding: 10px 15px; background: #f3e5f5; border-radius: 8px; border-left: 4px solid #7b1fa2;\">\n            <div style=\"font-size: 12px; color: #666; margin-bottom: 5px;\">Data Points</div>\n            <div style=\"font-size: 24px; font-weight: bold; color: #7b1fa2;\">{{msg.payload.data_points}}</div>\n        </div>\n    </div>\n    <div ng-if=\"!msg.payload\" style=\"color: #999; text-align: center; padding: 40px 20px;\">\n        <div style=\"font-size: 48px; margin-bottom: 10px;\">📊</div>\n        <div>No historical data yet</div>\n        <div style=\"font-size: 12px; margin-top: 5px;\">Refresh to collect data</div>\n    </div>\n</div>",
+        "format": "<div style=\"margin-right:10px;\">\n    <h3 style=\"margin-bottom:12px;\">Statistics</h3>\n    <div ng-if=\"msg.payload\">\n        <div style=\"margin-bottom: 20px; padding: 15px; background: #e3f2fd; border-radius: 8px; border-left: 4px solid #1976d2;\">\n            <div style=\"font-size: 12px; color: #666; margin-bottom: 5px;\">Average Temperature</div>\n            <div style=\"font-size: 24px; font-weight: bold; color: #1976d2;\">{{msg.payload.temperature.avg}}°C</div>\n        </div>\n        <div style=\"margin-bottom: 20px; padding: 15px; background: #fff3e0; border-radius: 8px; border-left: 4px solid #f57c00;\">\n            <div style=\"font-size: 12px; color: #666; margin-bottom: 5px;\">Maximum Temperature</div>\n            <div style=\"font-size: 24px; font-weight: bold; color: #f57c00;\">{{msg.payload.temperature.max}}°C</div>\n        </div>\n        <div style=\"padding: 15px; background: #e0f2f1; border-radius: 8px; border-left: 4px solid #00796b;\">\n            <div style=\"font-size: 12px; color: #666; margin-bottom: 5px;\">Minimum Temperature</div>\n            <div style=\"font-size: 24px; font-weight: bold; color: #00796b;\">{{msg.payload.temperature.min}}°C</div>\n        </div>\n    </div>\n    <div ng-if=\"!msg.payload\" style=\"color: #999; text-align: center; padding: 40px 20px;\">\n        <div style=\"font-size: 48px; margin-bottom: 10px;\">📊</div>\n        <div>No historical data yet</div>\n        <div style=\"font-size: 12px; margin-top: 5px;\">Refresh to collect data</div>\n    </div>\n</div>",
         "storeOutMessages": false,
         "fwdInMessages": false,
         "resendOnRefresh": false,
@@ -747,9 +570,9 @@
         ]
     },
     {
-        "id": "d2c1189ae3fabdeb",
+        "id": "337ce786bc6a6e33",
         "type": "ui_button",
-        "z": "0de154f5c46225de",
+        "z": "7a2819d05f5f4e5c",
         "name": "Refresh Button",
         "group": "group1",
         "order": 2,
@@ -770,14 +593,14 @@
         "y": 480,
         "wires": [
             [
-                "ad7def4c9c8550a8"
+                "ed58d49fcf353e51"
             ]
         ]
     },
     {
-        "id": "4fb9e96ff509ef71",
+        "id": "856d376f3996ef64",
         "type": "file",
-        "z": "0de154f5c46225de",
+        "z": "7a2819d05f5f4e5c",
         "name": "Write CSV file",
         "filename": "weather_history.csv",
         "filenameType": "str",
@@ -792,9 +615,9 @@
         ]
     },
     {
-        "id": "b5dcbb0e90ec11e6",
+        "id": "7d9756ce623928a9",
         "type": "function",
-        "z": "0de154f5c46225de",
+        "z": "7a2819d05f5f4e5c",
         "name": "Format CSV",
         "func": "// Get the stored weather data\nconst weatherData = flow.get('weatherData');\n\nif (!weatherData || !weatherData.current_weather) {\n    return null;\n}\n\nconst current = weatherData.current_weather.current;\nconst wind = weatherData.current_weather.wind;\n\nconst entry = {\n    timestamp: new Date().getTime(),\n    datetime: new Date().toLocaleString(),\n    city: msg.city || 'Unknown',\n    temperature: current.temperature,\n    humidity: current.humidity,\n    pressure: current.pressure,\n    wind_speed: wind.speed\n};\n\nmsg.payload = `${entry.timestamp},\"${entry.datetime}\",${entry.city},${entry.temperature},${entry.humidity},${entry.pressure},${entry.wind_speed}`;\n\nreturn msg;",
         "outputs": 1,
@@ -807,14 +630,14 @@
         "y": 820,
         "wires": [
             [
-                "4fb9e96ff509ef71"
+                "856d376f3996ef64"
             ]
         ]
     },
     {
-        "id": "17cecfed46221db6",
+        "id": "ba9f609aa3277cf1",
         "type": "function",
-        "z": "0de154f5c46225de",
+        "z": "7a2819d05f5f4e5c",
         "name": "check temperature",
         "func": "const temp = msg.payload.current.temperature;\nconst city = msg.city || 'Unknown';\n\n// Define thresholds\nconst highTempThreshold = 35;\nconst lowTempThreshold = 0;\n\nif (temp >= highTempThreshold) {\n    msg.payload = `High Temperature Alert: ${temp}°C in ${city}!`;\n    msg.topic = 'warning';\n    return msg;\n} else if (temp <= lowTempThreshold) {\n    msg.payload = `Low Temperature Alert: ${temp}°C in ${city}!`;\n    msg.topic = 'warning';\n    return msg;\n}\n\nreturn null;",
         "outputs": 1,
@@ -827,14 +650,14 @@
         "y": 380,
         "wires": [
             [
-                "61b2eae29fe63f2b"
+                "5ba803e5a8251ba3"
             ]
         ]
     },
     {
-        "id": "6f30859a5e0ec958",
+        "id": "721c3cb65b3f2a08",
         "type": "function",
-        "z": "0de154f5c46225de",
+        "z": "7a2819d05f5f4e5c",
         "name": "check humidity",
         "func": "const humidity = msg.payload.current.humidity;\nconst city = msg.city || 'Unknown';\n\n// Define thresholds\nconst highHumidityThreshold = 80;\nconst lowHumidityThreshold = 30;\n\nif (humidity >= highHumidityThreshold) {\n    msg.payload = `High Humidity Alert: ${humidity}% in ${city}!`;\n    msg.topic = 'info';\n    return msg;\n} else if (humidity <= lowHumidityThreshold) {\n    msg.payload = `Low Humidity Alert: ${humidity}% in ${city}!`;\n    msg.topic = 'info';\n    return msg;\n}\n\nreturn null;",
         "outputs": 1,
@@ -847,14 +670,14 @@
         "y": 440,
         "wires": [
             [
-                "9e3f804e770fc2a1"
+                "5fb27a9984a89ac1"
             ]
         ]
     },
     {
-        "id": "f8d29618d7c5533f",
+        "id": "a04da0b2e456eb23",
         "type": "function",
-        "z": "0de154f5c46225de",
+        "z": "7a2819d05f5f4e5c",
         "name": "check extreme weather",
         "func": "const description = msg.payload.current.description.toLowerCase();\nconst city = msg.city || 'Unknown';\n\n// Check for extreme weather conditions\nconst extremeConditions = ['thunderstorm', 'heavy rain', 'snow', 'tornado', 'hurricane'];\n\nfor (let condition of extremeConditions) {\n    if (description.includes(condition)) {\n        msg.payload = `EXTREME WEATHER ALERT: ${description} in ${city}!`;\n        msg.topic = 'error';\n        return msg;\n    }\n}\n\nreturn null;",
         "outputs": 1,
@@ -867,14 +690,14 @@
         "y": 500,
         "wires": [
             [
-                "70bfb265af94a1ee"
+                "ba2430e84b38d1b6"
             ]
         ]
     },
     {
-        "id": "61b2eae29fe63f2b",
+        "id": "5ba803e5a8251ba3",
         "type": "ui_toast",
-        "z": "0de154f5c46225de",
+        "z": "7a2819d05f5f4e5c",
         "position": "top right",
         "displayTime": "5",
         "highlight": "",
@@ -891,9 +714,9 @@
         "wires": []
     },
     {
-        "id": "9e3f804e770fc2a1",
+        "id": "5fb27a9984a89ac1",
         "type": "ui_toast",
-        "z": "0de154f5c46225de",
+        "z": "7a2819d05f5f4e5c",
         "position": "top right",
         "displayTime": "5",
         "highlight": "",
@@ -910,9 +733,9 @@
         "wires": []
     },
     {
-        "id": "70bfb265af94a1ee",
+        "id": "ba2430e84b38d1b6",
         "type": "ui_toast",
-        "z": "0de154f5c46225de",
+        "z": "7a2819d05f5f4e5c",
         "position": "top right",
         "displayTime": "5",
         "highlight": "",
@@ -927,5 +750,85 @@
         "x": 1620,
         "y": 500,
         "wires": []
+    },
+    {
+        "id": "2bd774b5eb3865a6",
+        "type": "ui_spacer",
+        "z": "7a2819d05f5f4e5c",
+        "name": "spacer",
+        "group": "group1",
+        "order": 3,
+        "width": 1,
+        "height": 1
+    },
+    {
+        "id": "38269b8bd5c7dd74",
+        "type": "ui_spacer",
+        "z": "7a2819d05f5f4e5c",
+        "name": "spacer",
+        "group": "group1",
+        "order": 5,
+        "width": 8,
+        "height": 1
+    },
+    {
+        "id": "e9548f979d1ca289",
+        "type": "ui_spacer",
+        "z": "7a2819d05f5f4e5c",
+        "name": "spacer",
+        "group": "caa6853f5a10dd4f",
+        "order": 4,
+        "width": 13,
+        "height": 1
+    },
+    {
+        "id": "group1",
+        "type": "ui_group",
+        "name": "Current Weather",
+        "tab": "tab1",
+        "order": 2,
+        "disp": false,
+        "width": 8,
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "0b0f3587ded3510d",
+        "type": "ui_group",
+        "name": "Weather Forecast",
+        "tab": "tab1",
+        "order": 3,
+        "disp": true,
+        "width": 18,
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "caa6853f5a10dd4f",
+        "type": "ui_group",
+        "name": "Historical Temperature",
+        "tab": "tab1",
+        "order": 4,
+        "disp": true,
+        "width": 18,
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "tab1",
+        "type": "ui_tab",
+        "name": "CPT316 Weather Dashboard",
+        "icon": "dashboard",
+        "order": 1,
+        "disabled": false,
+        "hidden": false
+    },
+    {
+        "id": "f1f14c2b4f65dd35",
+        "type": "global-config",
+        "env": [],
+        "modules": {
+            "node-red-dashboard": "3.6.6"
+        }
     }
 ]
