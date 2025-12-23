@@ -317,7 +317,7 @@ class WeatherCache:
     """
     Simple cache implementation to reduce API calls (Demonstrates Encapsulation)
     """
-    def __init__(self, cache_duration: int = 600):
+    def __init__(self, cache_duration: int = 900):
         self._cache = {}
         self._cache_duration = cache_duration  # seconds
     

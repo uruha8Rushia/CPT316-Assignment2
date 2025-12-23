@@ -5,13 +5,8 @@
 
 from flask import Flask, request, jsonify
 from flask_cors import CORS
-import os
-from dotenv import load_dotenv
 from weather_service import WeatherManager
 from datetime import datetime
-
-# Load environment variables
-load_dotenv()
 
 app = Flask(__name__)
 CORS(app)  # Enable CORS for Node-RED communication
