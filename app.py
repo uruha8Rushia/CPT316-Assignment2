@@ -5,15 +5,20 @@
 
 from flask import Flask, request, jsonify
 from flask_cors import CORS
+import os
+from dotenv import load_dotenv
 from weather_service import WeatherManager
 from datetime import datetime
+
+# Load environment variables
+load_dotenv()
 
 app = Flask(__name__)
 CORS(app)  # Enable CORS for Node-RED communication
 
 # Initialize Weather Manager
-API_KEY = os.getenv('OPENWEATHER_API_KEY', 'your_api_key_here')
-weather_manager = WeatherManager(API_KEY)
+# Initialize Weather Manager
+weather_manager = WeatherManager()
 
 
 @app.route('/')
@@ -44,9 +49,10 @@ def health_check():
 def get_current_weather():
 	"""Get current weather for a city"""
 	city = request.args.get('city', 'London')
+	use_cache = request.args.get('cache', 'true').lower() == 'true'
     
 	try:
-		data = weather_manager.get_current_weather(city)
+		data = weather_manager.get_current_weather(city, use_cache)
 		return jsonify(data)
 	except Exception as e:
 		return jsonify({"error": str(e)}), 500
@@ -56,9 +62,10 @@ def get_current_weather():
 def get_forecast():
 	"""Get weather forecast for a city"""
 	city = request.args.get('city', 'London')
+	use_cache = request.args.get('cache', 'true').lower() == 'true'
     
 	try:
-		data = weather_manager.get_forecast(city)
+		data = weather_manager.get_forecast(city, use_cache)
 		return jsonify(data)
 	except Exception as e:
 		return jsonify({"error": str(e)}), 500
@@ -88,6 +95,5 @@ if __name__ == '__main__':
 	print("Weather Dashboard API Server")
 	print("=" * 60)
 	print(f"Server starting on http://localhost:5000")
-	print(f"API Key configured: {'Yes' if API_KEY != 'your_api_key_here' else 'No - Please set OPENWEATHER_API_KEY'}")
 	print("=" * 60)
 	app.run(debug=True, host='0.0.0.0', port=5000)

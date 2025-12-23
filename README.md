@@ -1,6 +1,6 @@
 # Weather Dashboard API
 
-A Flask-based REST API for retrieving weather data using the OpenWeatherMap API. This project includes Node-RED integration for workflow automation and data visualization.
+A Flask-based REST API for retrieving weather data using the Open-Meteo API. This project includes Node-RED integration for workflow automation and data visualization.
 
 ## Features
 
@@ -9,11 +9,11 @@ A Flask-based REST API for retrieving weather data using the OpenWeatherMap API.
 - 🔄 Node-RED flow integration
 - 📊 Weather history tracking (CSV)
 - ✅ Health check endpoints
+- 🆓 Free Open-Meteo API (No API Key required)
 
 ## Prerequisites
 
 - Python 3.8 or higher
-- OpenWeatherMap API key ([Get one here](https://openweathermap.org/api))
 - Node-RED (optional, for flow integration)
 
 ## Installation
@@ -40,12 +40,9 @@ A Flask-based REST API for retrieving weather data using the OpenWeatherMap API.
    pip install -r requirements.txt
    ```
 
-4. **Set up environment variables**
+4. **(Optional) Set up environment variables**
    
-   Create a `.env` file in the project root:
-   ```
-   OPENWEATHER_API_KEY=your_api_key_here
-   ```
+   No API key is required for Open-Meteo.
 
 ## Usage
 
@@ -86,7 +83,6 @@ Import the `node-red-flow.json` file into Node-RED to use the pre-configured wea
 ├── requirements.txt        # Python dependencies
 ├── weather_history.csv     # Weather data history
 ├── node-red-flow.json      # Node-RED flow configuration
-├── .env                    # Environment variables (create this)
 └── README.md              # This file
 ```
 
@@ -95,8 +91,7 @@ Import the `node-red-flow.json` file into Node-RED to use the pre-configured wea
 - **Flask** - Web framework
 - **Flask-CORS** - Cross-origin resource sharing
 - **Requests** - HTTP library
-- **Python-dotenv** - Environment variable management
-- **OpenWeatherMap API** - Weather data provider
+- **Open-Meteo API** - Weather data provider
 
 ## Contributing
 

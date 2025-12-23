@@ -8,6 +8,173 @@
         "env": []
     },
     {
+        "id": "tab1",
+        "type": "ui_tab",
+        "name": "CPT316 Weather Dashboard",
+        "icon": "dashboard",
+        "order": 1,
+        "disabled": false,
+        "hidden": false
+    },
+    {
+        "id": "f1f14c2b4f65dd35",
+        "type": "global-config",
+        "env": [],
+        "modules": {
+            "node-red-dashboard": "3.6.6"
+        }
+    },
+    {
+        "id": "group1",
+        "type": "ui_group",
+        "name": "Current Weather",
+        "tab": "tab1",
+        "order": 2,
+        "disp": false,
+        "width": 8,
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "0b0f3587ded3510d",
+        "type": "ui_group",
+        "name": "Weather Forecast",
+        "tab": "tab1",
+        "order": 3,
+        "disp": true,
+        "width": 18,
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "caa6853f5a10dd4f",
+        "type": "ui_group",
+        "name": "Historical Temperature",
+        "tab": "tab1",
+        "order": 4,
+        "disp": true,
+        "width": 18,
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "2a90205ebb5f36a1",
+        "type": "ui_spacer",
+        "z": "7a2819d05f5f4e5c",
+        "name": "spacer",
+        "group": "group1",
+        "order": 3,
+        "width": 1,
+        "height": 1
+    },
+    {
+        "id": "29573e85b7a08502",
+        "type": "ui_spacer",
+        "z": "7a2819d05f5f4e5c",
+        "name": "spacer",
+        "group": "group1",
+        "order": 5,
+        "width": 8,
+        "height": 1
+    },
+    {
+        "id": "e4420ee40120d09a",
+        "type": "ui_base",
+        "theme": {
+            "name": "theme-light",
+            "lightTheme": {
+                "default": "#0094CE",
+                "baseColor": "#0094CE",
+                "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif",
+                "edited": true,
+                "reset": false
+            },
+            "darkTheme": {
+                "default": "#097479",
+                "baseColor": "#097479",
+                "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif",
+                "edited": false
+            },
+            "customTheme": {
+                "name": "Untitled Theme 1",
+                "default": "#4B7930",
+                "baseColor": "#4B7930",
+                "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif"
+            },
+            "themeState": {
+                "base-color": {
+                    "default": "#0094CE",
+                    "value": "#0094CE",
+                    "edited": false
+                },
+                "page-titlebar-backgroundColor": {
+                    "value": "#0094CE",
+                    "edited": false
+                },
+                "page-backgroundColor": {
+                    "value": "#fafafa",
+                    "edited": false
+                },
+                "page-sidebar-backgroundColor": {
+                    "value": "#ffffff",
+                    "edited": false
+                },
+                "group-textColor": {
+                    "value": "#1bbfff",
+                    "edited": false
+                },
+                "group-borderColor": {
+                    "value": "#ffffff",
+                    "edited": false
+                },
+                "group-backgroundColor": {
+                    "value": "#ffffff",
+                    "edited": false
+                },
+                "widget-textColor": {
+                    "value": "#111111",
+                    "edited": false
+                },
+                "widget-backgroundColor": {
+                    "value": "#0094ce",
+                    "edited": false
+                },
+                "widget-borderColor": {
+                    "value": "#ffffff",
+                    "edited": false
+                },
+                "base-font": {
+                    "value": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif"
+                }
+            },
+            "angularTheme": {
+                "primary": "indigo",
+                "accents": "blue",
+                "warn": "red",
+                "background": "grey",
+                "palette": "light"
+            }
+        },
+        "site": {
+            "name": "Node-RED Dashboard",
+            "hideToolbar": "false",
+            "allowSwipe": "false",
+            "lockMenu": "false",
+            "allowTempTheme": "true",
+            "dateFormat": "DD/MM/YYYY",
+            "sizes": {
+                "sx": 48,
+                "sy": 48,
+                "gx": 6,
+                "gy": 6,
+                "cx": 6,
+                "cy": 6,
+                "px": 0,
+                "py": 0
+            }
+        }
+    },
+    {
         "id": "b48d176d50e735f1",
         "type": "inject",
         "z": "7a2819d05f5f4e5c",
@@ -19,8 +186,8 @@
         ],
         "repeat": "",
         "crontab": "",
-        "once": false,
-        "onceDelay": "",
+        "once": true,
+        "onceDelay": 0.1,
         "topic": "",
         "payload": "Penang",
         "payloadType": "str",
@@ -37,7 +204,7 @@
         "type": "function",
         "z": "7a2819d05f5f4e5c",
         "name": "Build URL",
-        "func": "// Get city from input, stored city, or default\nlet city = msg.payload;\n\n// If payload is \"refresh\" or empty, use stored city\nif (!city || city === \"refresh\" || city.trim() === \"\") {\n    city = flow.get('currentCity') || 'Penang';\n}\n\n// Store current city\nflow.set('currentCity', city);\n\n// Build API URL\nmsg.url = `http://127.0.0.1:5000/api/weather/complete?city=${encodeURIComponent(city)}`;\nmsg.city = city;\n\nreturn msg;",
+        "func": "// Get city from input, stored city, or default\nlet city = msg.payload;\n\n// Ensure city is a string, if not (e.g. object from ui_control), treat as empty\nif (typeof city !== 'string') {\n    city = '';\n}\n\n// If payload is \"refresh\" or empty, use stored city\nif (!city || city === \"refresh\" || city.trim() === \"\") {\n    city = flow.get('currentCity') || 'Penang';\n}\n\n// Store current city\nflow.set('currentCity', city);\n\n// Build API URL\nmsg.url = `http://127.0.0.1:5000/api/weather/complete?city=${encodeURIComponent(city)}`;\nmsg.city = city;\n\nreturn msg;",
         "outputs": 1,
         "timeout": "",
         "noerr": 0,
@@ -428,7 +595,7 @@
         "type": "function",
         "z": "7a2819d05f5f4e5c",
         "name": "Process History",
-        "func": "// Handle View Mode Selection\nif (msg.topic === 'viewMode') {\n    flow.set('historyViewMode', msg.payload);\n}\n\n// Handle New Data\nif (msg.payload && msg.payload.hourly) {\n    flow.set('historicalData', msg.payload);\n}\n\n// Get current state\nconst viewMode = flow.get('historyViewMode') || '7d';\nconst data = flow.get('historicalData');\nconst city = (msg.city) ? msg.city : (flow.get('currentCity') || 'Unknown');\n\nif (!data || !data.hourly) {\n    return null;\n}\n\nlet hourly = data.hourly;\n\n// Filter based on view mode\nif (viewMode === '24h') {\n    const oneDayAgo = new Date().getTime() - (24 * 60 * 60 * 1000);\n    hourly = hourly.filter(h => new Date(h.timestamp).getTime() > oneDayAgo);\n} else if (viewMode === '7d') {\n    const sevenDaysAgo = new Date().getTime() - (7 * 24 * 60 * 60 * 1000);\n    hourly = hourly.filter(h => new Date(h.timestamp).getTime() > sevenDaysAgo);\n}\n// '30d' uses all data (up to 30 days fetched)\n\n// 1. Prepare Chart Data\n// Create array of {x, y} points\nconst points = hourly.map(h => {\n    return {\n        x: new Date(h.timestamp).getTime(),\n        y: h.temperature\n    };\n});\n\n// Chart payload\nlet chartMsg = {\n    payload: [{\n        series: [\"Temperature\"],\n        data: [points],\n        labels: [\"Temperature\"]\n    }],\n    topic: 'Temperature',\n    city: city\n};\n\n// 2. Prepare Stats Data\nlet statsMsg = {\n    payload: hourly,\n    city: city\n};\n\nreturn [chartMsg, statsMsg];",
+        "func": "// Handle View Mode Selection\nif (msg.topic === 'viewMode') {\n    flow.set('historyViewMode', msg.payload);\n}\n\n// Handle New Data\nif (msg.payload && msg.payload.hourly) {\n    flow.set('historicalData', msg.payload);\n}\n\n// Get current state\nconst viewMode = flow.get('historyViewMode') || '7d';\nconst data = flow.get('historicalData');\nconst weatherData = flow.get('weatherData');\nconst city = (msg.city) ? msg.city : (flow.get('currentCity') || 'Unknown');\n\nif (!data || !data.hourly) {\n    return null;\n}\n\nlet hourly = [...data.hourly];\n\n// Add current weather point if available\nif (weatherData && weatherData.current_weather && weatherData.current_weather.current) {\n    const current = weatherData.current_weather.current;\n    const currentPoint = {\n        timestamp: new Date().toISOString(),\n        temperature: current.temperature,\n        humidity: current.humidity,\n        pressure: current.pressure,\n        wind_speed: (weatherData.current_weather.wind) ? weatherData.current_weather.wind.speed : 0\n    };\n    hourly.push(currentPoint);\n}\n\n// Filter based on view mode\nif (viewMode === '24h') {\n    const oneDayAgo = new Date().getTime() - (24 * 60 * 60 * 1000);\n    hourly = hourly.filter(h => new Date(h.timestamp).getTime() > oneDayAgo);\n} else if (viewMode === '7d') {\n    const sevenDaysAgo = new Date().getTime() - (7 * 24 * 60 * 60 * 1000);\n    hourly = hourly.filter(h => new Date(h.timestamp).getTime() > sevenDaysAgo);\n}\n\n// 1. Prepare Chart Data\nconst points = hourly.map(h => {\n    return {\n        x: new Date(h.timestamp).getTime(),\n        y: h.temperature\n    };\n});\npoints.sort((a, b) => a.x - b.x);\n\n// Chart payload\nlet chartMsg = {\n    payload: [{\n        series: [\"Temperature\"],\n        data: [points],\n        labels: [\"Temperature\"]\n    }],\n    topic: 'Temperature',\n    city: city\n};\n\n// 2. Prepare Stats Data\nlet statsMsg = {\n    payload: hourly,\n    city: city\n};\n\nreturn [chartMsg, statsMsg];",
         "outputs": 2,
         "noerr": 0,
         "initialize": "",
@@ -454,7 +621,7 @@
         "group": "caa6853f5a10dd4f",
         "order": 2,
         "width": 13,
-        "height": 8,
+        "height": 9,
         "label": "Temperature History",
         "chartType": "line",
         "legend": "false",
@@ -485,7 +652,7 @@
         "useDifferentColor": false,
         "className": "",
         "x": 1640,
-        "y": 700,
+        "y": 680,
         "wires": [
             []
         ]
@@ -495,7 +662,7 @@
         "type": "ui_dropdown",
         "z": "7a2819d05f5f4e5c",
         "name": "Chart View",
-        "label": "View:",
+        "label": "",
         "tooltip": "Select time range",
         "place": "Select view",
         "group": "caa6853f5a10dd4f",
@@ -525,7 +692,7 @@
         "topic": "viewMode",
         "topicType": "str",
         "className": "",
-        "x": 1100,
+        "x": 1090,
         "y": 740,
         "wires": [
             [
@@ -559,9 +726,9 @@
         "z": "7a2819d05f5f4e5c",
         "group": "caa6853f5a10dd4f",
         "name": "Historical Statistics",
-        "order": 3,
+        "order": 4,
         "width": 5,
-        "height": 8,
+        "height": 7,
         "format": "<div style=\"margin-right:10px;\">\n    <h3 style=\"margin-bottom:12px;\">Statistics</h3>\n    <div ng-if=\"msg.payload\">\n        <div style=\"margin-bottom: 20px; padding: 15px; background: #e3f2fd; border-radius: 8px; border-left: 4px solid #1976d2;\">\n            <div style=\"font-size: 12px; color: #666; margin-bottom: 5px;\">Average Temperature</div>\n            <div style=\"font-size: 24px; font-weight: bold; color: #1976d2;\">{{msg.payload.temperature.avg}}°C</div>\n        </div>\n        <div style=\"margin-bottom: 20px; padding: 15px; background: #fff3e0; border-radius: 8px; border-left: 4px solid #f57c00;\">\n            <div style=\"font-size: 12px; color: #666; margin-bottom: 5px;\">Maximum Temperature</div>\n            <div style=\"font-size: 24px; font-weight: bold; color: #f57c00;\">{{msg.payload.temperature.max}}°C</div>\n        </div>\n        <div style=\"padding: 15px; background: #e0f2f1; border-radius: 8px; border-left: 4px solid #00796b;\">\n            <div style=\"font-size: 12px; color: #666; margin-bottom: 5px;\">Minimum Temperature</div>\n            <div style=\"font-size: 24px; font-weight: bold; color: #00796b;\">{{msg.payload.temperature.min}}°C</div>\n        </div>\n    </div>\n    <div ng-if=\"!msg.payload\" style=\"color: #999; text-align: center; padding: 40px 20px;\">\n        <div style=\"font-size: 48px; margin-bottom: 10px;\">📊</div>\n        <div>No historical data yet</div>\n        <div style=\"font-size: 12px; margin-top: 5px;\">Refresh to collect data</div>\n    </div>\n</div>",
         "storeOutMessages": false,
         "fwdInMessages": false,
@@ -614,7 +781,7 @@
         "overwriteFile": "false",
         "encoding": "utf8",
         "x": 1880,
-        "y": 820,
+        "y": 840,
         "wires": [
             []
         ]
@@ -632,7 +799,7 @@
         "finalize": "",
         "libs": [],
         "x": 1590,
-        "y": 820,
+        "y": 840,
         "wires": [
             [
                 "856d376f3996ef64"
@@ -757,76 +924,13 @@
         "wires": []
     },
     {
-        "id": "2bd774b5eb3865a6",
-        "type": "ui_spacer",
-        "z": "7a2819d05f5f4e5c",
-        "name": "spacer",
-        "group": "group1",
-        "order": 3,
-        "width": 1,
-        "height": 1
-    },
-    {
-        "id": "38269b8bd5c7dd74",
-        "type": "ui_spacer",
-        "z": "7a2819d05f5f4e5c",
-        "name": "spacer",
-        "group": "group1",
-        "order": 5,
-        "width": 8,
-        "height": 1
-    },
-    {
-        "id": "e9548f979d1ca289",
-        "type": "ui_spacer",
-        "z": "7a2819d05f5f4e5c",
-        "name": "spacer",
-        "group": "caa6853f5a10dd4f",
-        "order": 4,
-        "width": 13,
-        "height": 1
-    },
-    {
-        "id": "group1",
-        "type": "ui_group",
-        "name": "Current Weather",
-        "tab": "tab1",
-        "order": 2,
-        "disp": false,
-        "width": 8,
-        "collapse": false,
-        "className": ""
-    },
-    {
-        "id": "0b0f3587ded3510d",
-        "type": "ui_group",
-        "name": "Weather Forecast",
-        "tab": "tab1",
-        "order": 3,
-        "disp": true,
-        "width": 18,
-        "collapse": false,
-        "className": ""
-    },
-    {
-        "id": "caa6853f5a10dd4f",
-        "type": "ui_group",
-        "name": "Historical Temperature",
-        "tab": "tab1",
-        "order": 4,
-        "disp": true,
-        "width": 18,
-        "collapse": false,
-        "className": ""
-    },
-    {
         "id": "btn_export_history",
         "type": "ui_button",
         "z": "7a2819d05f5f4e5c",
         "name": "Export CSV",
         "group": "caa6853f5a10dd4f",
-        "order": 4,
-        "width": 13,
+        "order": 3,
+        "width": 5,
         "height": 1,
         "passthru": false,
         "label": "Export Historical Data (CSV)",
@@ -839,8 +943,8 @@
         "payloadType": "str",
         "topic": "export",
         "topicType": "str",
-        "x": 1100,
-        "y": 800,
+        "x": 1090,
+        "y": 860,
         "wires": [
             [
                 "func_format_export"
@@ -855,8 +959,8 @@
         "func": "// Get data and view mode\nconst data = flow.get('historicalData');\nconst viewMode = flow.get('historyViewMode') || '7d';\nconst city = flow.get('currentCity') || 'Unknown';\n\nif (!data || !data.hourly) {\n    return null;\n}\n\nlet hourly = data.hourly;\n\n// Filter based on view mode (same logic as Process History)\nconst now = new Date().getTime();\nif (viewMode === '24h') {\n    const cutoff = now - (24 * 60 * 60 * 1000);\n    hourly = hourly.filter(h => new Date(h.timestamp).getTime() > cutoff);\n} else if (viewMode === '7d') {\n    const cutoff = now - (7 * 24 * 60 * 60 * 1000);\n    hourly = hourly.filter(h => new Date(h.timestamp).getTime() > cutoff);\n}\n\n// Create CSV\nlet csv = \"Timestamp,Date,Time,Temperature(C),Humidity(%),Pressure(hPa),Wind Speed(m/s)\\n\";\n\nhourly.forEach(h => {\n    const dt = new Date(h.timestamp);\n    csv += `${h.timestamp},${dt.toLocaleDateString()},${dt.toLocaleTimeString()},${h.temperature},${h.humidity},${h.pressure},${h.wind_speed}\\n`;\n});\n\nmsg.payload = csv;\nmsg.filename = `history_${city}_${viewMode}.csv`; // For file node\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
-        "x": 1320,
-        "y": 800,
+        "x": 1330,
+        "y": 860,
         "wires": [
             [
                 "file_export_csv"
@@ -874,8 +978,8 @@
         "createDir": false,
         "overwriteFile": "true",
         "encoding": "utf8",
-        "x": 1540,
-        "y": 800,
+        "x": 1600,
+        "y": 920,
         "wires": [
             [
                 "toast_export_done"
@@ -897,25 +1001,8 @@
         "className": "",
         "topic": "",
         "name": "Export Complete",
-        "x": 1740,
-        "y": 800,
+        "x": 1890,
+        "y": 920,
         "wires": []
-    },
-    {
-        "id": "tab1",
-        "type": "ui_tab",
-        "name": "CPT316 Weather Dashboard",
-        "icon": "dashboard",
-        "order": 1,
-        "disabled": false,
-        "hidden": false
-    },
-    {
-        "id": "f1f14c2b4f65dd35",
-        "type": "global-config",
-        "env": [],
-        "modules": {
-            "node-red-dashboard": "3.6.6"
-        }
     }
 ]
