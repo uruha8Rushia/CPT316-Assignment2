@@ -1,6 +1,29 @@
 import requests
 from datetime import datetime, timedelta
 from typing import Dict, List, Optional
+import json
+
+class WeatherAPIBase:
+    """
+    Base class for weather API services (Demonstrates Inheritance)
+    """
+    def __init__(self, api_key: str):
+        self._api_key = api_key  # Encapsulation: private attribute
+        self._base_url = ""
+    
+    def _make_request(self, endpoint: str, params: Dict) -> Optional[Dict]:
+        """
+        Protected method for making API requests (Encapsulation)
+        """
+        try:
+            params['appid'] = self._api_key
+            response = requests.get(f"{self._base_url}{endpoint}", params=params, timeout=10)
+            response.raise_for_status()
+            return response.json()
+        except requests.exceptions.RequestException as e:
+            print(f"API Request Error: {e}")
+            return None
+
 
 class OpenMeteoService:
     """
@@ -78,6 +101,65 @@ class OpenMeteoService:
         except requests.exceptions.RequestException as e:
             print(f"OpenMeteo Archive API Error: {e}")
             return None
+
+
+
+
+
+class WeatherData:
+    """
+    Weather data model class (Demonstrates Encapsulation)
+    """
+    def __init__(self, raw_data: Dict):
+        self._raw_data = raw_data
+        self._processed_data = {}
+    
+    def get_temperature(self) -> float:
+        """Get temperature in specified units"""
+        return self._raw_data.get('main', {}).get('temp', 0)
+    
+    def get_feels_like(self) -> float:
+        """Get feels-like temperature"""
+        return self._raw_data.get('main', {}).get('feels_like', 0)
+    
+    def get_humidity(self) -> int:
+        """Get humidity percentage"""
+        return self._raw_data.get('main', {}).get('humidity', 0)
+    
+    def get_pressure(self) -> int:
+        """Get atmospheric pressure"""
+        return self._raw_data.get('main', {}).get('pressure', 0)
+    
+    def get_wind_speed(self) -> float:
+        """Get wind speed"""
+        return self._raw_data.get('wind', {}).get('speed', 0)
+    
+    def get_wind_direction(self) -> int:
+        """Get wind direction in degrees"""
+        return self._raw_data.get('wind', {}).get('deg', 0)
+    
+    def get_description(self) -> str:
+        """Get weather description"""
+        weather = self._raw_data.get('weather', [{}])[0]
+        return weather.get('description', 'N/A')
+    
+    def get_icon(self) -> str:
+        """Get weather icon code"""
+        weather = self._raw_data.get('weather', [{}])[0]
+        return weather.get('icon', '')
+    
+    def get_city_name(self) -> str:
+        """Get city name"""
+        return self._raw_data.get('name', 'Unknown')
+    
+    def get_country(self) -> str:
+        """Get country code"""
+        return self._raw_data.get('sys', {}).get('country', '')
+    
+    def get_timestamp(self) -> str:
+        """Get data timestamp"""
+        dt = self._raw_data.get('dt', 0)
+        return datetime.fromtimestamp(dt).strftime('%Y-%m-%d %H:%M:%S')
 
 
 class DataProcessor:
@@ -342,20 +424,16 @@ class WeatherManager:
     """
     Main weather manager class coordinating all services (Demonstrates Composition)
     """
-    def __init__(self):
+    def __init__(self, api_key: str):
+        # API Key not needed for Open-Meteo but keeping arg for compatibility
         self.open_meteo_service = OpenMeteoService()
         self.data_processor = DataProcessor()
         self.cache = WeatherCache()
     
-    def get_complete_weather_info(self, city: str, use_cache: bool = True) -> Dict:
+    def get_complete_weather_info(self, city: str) -> Dict:
         """
         Get complete weather information using Open-Meteo with caching
         """
-        cache_key = f"complete_{city.lower()}"
-        cached = self.cache.get(cache_key)
-        if cached:
-            return cached
-        
         # 1. Geocode
         city_info = self.open_meteo_service.get_coordinates(city)
         if not city_info:
@@ -390,57 +468,28 @@ class WeatherManager:
             if raw_history:
                 historical = self.data_processor.process_historical_weather(raw_history)
         
-        result = {
-        result = {
+        return {
             "current_weather": current,
             "forecast": forecast,
             "statistics": statistics,
             "historical": historical
         }
-        
-        self.cache.set(cache_key, result)
-        return result
     
+    # Keeping these methods for compatibility if called individually
     def get_current_weather(self, city: str) -> Dict:
-        """
-        Get current weather for a city with caching
-        """
-        cache_key = f"current_{city.lower()}"
-        cached = self.cache.get(cache_key)
-        if cached:
-            return cached
-        
         city_info = self.open_meteo_service.get_coordinates(city)
         if not city_info:
             return {"error": "City not found"}
         
         raw = self.open_meteo_service.get_weather_data(city_info['latitude'], city_info['longitude'])
-        if not raw:
-            return {"error": "Failed to fetch weather data"}
-        
-        result = self.data_processor.process_current_weather(raw, city_info)
-        self.cache.set(cache_key, result)
-        return result
+        return self.data_processor.process_current_weather(raw, city_info)
 
     def get_forecast(self, city: str) -> Dict:
-        """
-        Get weather forecast for a city with caching
-        """
-        cache_key = f"forecast_{city.lower()}"
-        cached = self.cache.get(cache_key)
-        if cached:
-            return cached
-        
         city_info = self.open_meteo_service.get_coordinates(city)
         if not city_info:
             return {"error": "City not found"}
         
         raw = self.open_meteo_service.get_weather_data(city_info['latitude'], city_info['longitude'])
-        if not raw:
-            return {"error": "Failed to fetch weather data"}
-        
-        result = self.data_processor.process_forecast(raw, city_info)
-        self.cache.set(cache_key, result)
-        return result
+        return self.data_processor.process_forecast(raw, city_info)
 
 
