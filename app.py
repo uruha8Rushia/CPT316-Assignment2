@@ -17,7 +17,6 @@ app = Flask(__name__)
 CORS(app)  # Enable CORS for Node-RED communication
 
 # Initialize Weather Manager
-# Initialize Weather Manager
 weather_manager = WeatherManager()
 
 
