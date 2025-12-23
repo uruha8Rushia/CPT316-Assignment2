@@ -2,7 +2,6 @@ import requests
 from datetime import datetime, timedelta
 from typing import Dict, List, Optional
 
-
 class OpenMeteoService:
     """
     Open-Meteo API implementation for all weather data (Free, No Key)
@@ -348,7 +347,7 @@ class WeatherManager:
         self.data_processor = DataProcessor()
         self.cache = WeatherCache()
     
-    def get_complete_weather_info(self, city: str) -> Dict:
+    def get_complete_weather_info(self, city: str, use_cache: bool = True) -> Dict:
         """
         Get complete weather information using Open-Meteo with caching
         """
@@ -391,6 +390,7 @@ class WeatherManager:
             if raw_history:
                 historical = self.data_processor.process_historical_weather(raw_history)
         
+        result = {
         result = {
             "current_weather": current,
             "forecast": forecast,

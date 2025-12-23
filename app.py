@@ -12,6 +12,7 @@ app = Flask(__name__)
 CORS(app)  # Enable CORS for Node-RED communication
 
 # Initialize Weather Manager
+# Initialize Weather Manager
 weather_manager = WeatherManager()
 
 
@@ -87,6 +88,5 @@ if __name__ == '__main__':
 	print("Weather Dashboard API Server")
 	print("=" * 60)
 	print(f"Server starting on http://localhost:5000")
-	print(f"Using Open-Meteo API (Free, No Key Required)")
 	print("=" * 60)
 	app.run(debug=True, host='0.0.0.0', port=5000)
