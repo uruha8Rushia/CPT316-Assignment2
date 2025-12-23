@@ -78,103 +78,6 @@
         "height": 1
     },
     {
-        "id": "e4420ee40120d09a",
-        "type": "ui_base",
-        "theme": {
-            "name": "theme-light",
-            "lightTheme": {
-                "default": "#0094CE",
-                "baseColor": "#0094CE",
-                "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif",
-                "edited": true,
-                "reset": false
-            },
-            "darkTheme": {
-                "default": "#097479",
-                "baseColor": "#097479",
-                "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif",
-                "edited": false
-            },
-            "customTheme": {
-                "name": "Untitled Theme 1",
-                "default": "#4B7930",
-                "baseColor": "#4B7930",
-                "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif"
-            },
-            "themeState": {
-                "base-color": {
-                    "default": "#0094CE",
-                    "value": "#0094CE",
-                    "edited": false
-                },
-                "page-titlebar-backgroundColor": {
-                    "value": "#0094CE",
-                    "edited": false
-                },
-                "page-backgroundColor": {
-                    "value": "#fafafa",
-                    "edited": false
-                },
-                "page-sidebar-backgroundColor": {
-                    "value": "#ffffff",
-                    "edited": false
-                },
-                "group-textColor": {
-                    "value": "#1bbfff",
-                    "edited": false
-                },
-                "group-borderColor": {
-                    "value": "#ffffff",
-                    "edited": false
-                },
-                "group-backgroundColor": {
-                    "value": "#ffffff",
-                    "edited": false
-                },
-                "widget-textColor": {
-                    "value": "#111111",
-                    "edited": false
-                },
-                "widget-backgroundColor": {
-                    "value": "#0094ce",
-                    "edited": false
-                },
-                "widget-borderColor": {
-                    "value": "#ffffff",
-                    "edited": false
-                },
-                "base-font": {
-                    "value": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif"
-                }
-            },
-            "angularTheme": {
-                "primary": "indigo",
-                "accents": "blue",
-                "warn": "red",
-                "background": "grey",
-                "palette": "light"
-            }
-        },
-        "site": {
-            "name": "Node-RED Dashboard",
-            "hideToolbar": "false",
-            "allowSwipe": "false",
-            "lockMenu": "false",
-            "allowTempTheme": "true",
-            "dateFormat": "DD/MM/YYYY",
-            "sizes": {
-                "sx": 48,
-                "sy": 48,
-                "gx": 6,
-                "gy": 6,
-                "cx": 6,
-                "cy": 6,
-                "px": 0,
-                "py": 0
-            }
-        }
-    },
-    {
         "id": "b48d176d50e735f1",
         "type": "inject",
         "z": "7a2819d05f5f4e5c",
@@ -595,7 +498,7 @@
         "type": "function",
         "z": "7a2819d05f5f4e5c",
         "name": "Process History",
-        "func": "// Handle View Mode Selection\nif (msg.topic === 'viewMode') {\n    flow.set('historyViewMode', msg.payload);\n}\n\n// Handle New Data\nif (msg.payload && msg.payload.hourly) {\n    flow.set('historicalData', msg.payload);\n}\n\n// Get current state\nconst viewMode = flow.get('historyViewMode') || '7d';\nconst data = flow.get('historicalData');\nconst weatherData = flow.get('weatherData');\nconst city = (msg.city) ? msg.city : (flow.get('currentCity') || 'Unknown');\n\nif (!data || !data.hourly) {\n    return null;\n}\n\nlet hourly = [...data.hourly];\n\n// Add current weather point if available\nif (weatherData && weatherData.current_weather && weatherData.current_weather.current) {\n    const current = weatherData.current_weather.current;\n    const currentPoint = {\n        timestamp: new Date().toISOString(),\n        temperature: current.temperature,\n        humidity: current.humidity,\n        pressure: current.pressure,\n        wind_speed: (weatherData.current_weather.wind) ? weatherData.current_weather.wind.speed : 0\n    };\n    hourly.push(currentPoint);\n}\n\n// Filter based on view mode\nif (viewMode === '24h') {\n    const oneDayAgo = new Date().getTime() - (24 * 60 * 60 * 1000);\n    hourly = hourly.filter(h => new Date(h.timestamp).getTime() > oneDayAgo);\n} else if (viewMode === '7d') {\n    const sevenDaysAgo = new Date().getTime() - (7 * 24 * 60 * 60 * 1000);\n    hourly = hourly.filter(h => new Date(h.timestamp).getTime() > sevenDaysAgo);\n}\n\n// 1. Prepare Chart Data\nconst points = hourly.map(h => {\n    return {\n        x: new Date(h.timestamp).getTime(),\n        y: h.temperature\n    };\n});\npoints.sort((a, b) => a.x - b.x);\n\n// Chart payload\nlet chartMsg = {\n    payload: [{\n        series: [\"Temperature\"],\n        data: [points],\n        labels: [\"Temperature\"]\n    }],\n    topic: 'Temperature',\n    city: city\n};\n\n// 2. Prepare Stats Data\nlet statsMsg = {\n    payload: hourly,\n    city: city\n};\n\nreturn [chartMsg, statsMsg];",
+        "func": "// Handle View Mode Selection\nif (msg.topic === 'viewMode') {\n    flow.set('historyViewMode', msg.payload);\n}\n\n// Handle New Data\nif (msg.payload && msg.payload.hourly) {\n    flow.set('historicalData', msg.payload);\n}\n\n// Get current state\nconst viewMode = flow.get('historyViewMode') || '7d';\nconst data = flow.get('historicalData');\nconst city = (msg.city) ? msg.city : (flow.get('currentCity') || 'Unknown');\n\nif (!data || !data.hourly) {\n    return null;\n}\n\nlet hourly = data.hourly;\n\n// Filter based on view mode\nif (viewMode === '24h') {\n    const oneDayAgo = new Date().getTime() - (24 * 60 * 60 * 1000);\n    hourly = hourly.filter(h => new Date(h.timestamp).getTime() > oneDayAgo);\n} else if (viewMode === '7d') {\n    const sevenDaysAgo = new Date().getTime() - (7 * 24 * 60 * 60 * 1000);\n    hourly = hourly.filter(h => new Date(h.timestamp).getTime() > sevenDaysAgo);\n}\n// '30d' uses all data (up to 30 days fetched)\n\n// 1. Prepare Chart Data\n// Create array of {x, y} points\nconst points = hourly.map(h => {\n    return {\n        x: new Date(h.timestamp).getTime(),\n        y: h.temperature\n    };\n});\n\n// Chart payload\nlet chartMsg = {\n    payload: [{\n        series: [\"Temperature\"],\n        data: [points],\n        labels: [\"Temperature\"]\n    }],\n    topic: 'Temperature',\n    city: city\n};\n\n// 2. Prepare Stats Data\nlet statsMsg = {\n    payload: hourly,\n    city: city\n};\n\nreturn [chartMsg, statsMsg];",
         "outputs": 2,
         "noerr": 0,
         "initialize": "",
@@ -662,7 +565,7 @@
         "type": "ui_dropdown",
         "z": "7a2819d05f5f4e5c",
         "name": "Chart View",
-        "label": "",
+        "label": "View:",
         "tooltip": "Select time range",
         "place": "Select view",
         "group": "caa6853f5a10dd4f",
