@@ -393,7 +393,11 @@
         "name": "Pass Forecast Data",
         "func": "return msg;",
         "outputs": 1,
+        "timeout": "",
         "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
         "x": 1310,
         "y": 600,
         "wires": [
@@ -430,6 +434,7 @@
         "name": "Process History",
         "func": "// Handle View Mode Selection\nif (msg.topic === 'viewMode') {\n    flow.set('historyViewMode', msg.payload);\n}\n\n// Handle New Data\nif (msg.payload && msg.payload.hourly) {\n    flow.set('historicalData', msg.payload);\n}\n\n// Get current state\nconst viewMode = flow.get('historyViewMode') || '7d';\nconst data = flow.get('historicalData');\nconst weatherData = flow.get('weatherData');\nconst city = (msg.city) ? msg.city : (flow.get('currentCity') || 'Unknown');\n\nif (!data || !data.hourly) {\n    return null;\n}\n\nlet hourly = [...data.hourly];\n\n// Add current weather point if available\nif (weatherData && weatherData.current_weather && weatherData.current_weather.current) {\n    const current = weatherData.current_weather.current;\n    const currentPoint = {\n        timestamp: new Date().toISOString(),\n        temperature: current.temperature,\n        humidity: current.humidity,\n        pressure: current.pressure,\n        wind_speed: (weatherData.current_weather.wind) ? weatherData.current_weather.wind.speed : 0\n    };\n    hourly.push(currentPoint);\n}\n\n// Filter based on view mode\nif (viewMode === '24h') {\n    const oneDayAgo = new Date().getTime() - (24 * 60 * 60 * 1000);\n    hourly = hourly.filter(h => new Date(h.timestamp).getTime() > oneDayAgo);\n} else if (viewMode === '7d') {\n    const sevenDaysAgo = new Date().getTime() - (7 * 24 * 60 * 60 * 1000);\n    hourly = hourly.filter(h => new Date(h.timestamp).getTime() > sevenDaysAgo);\n}\n\n// 1. Prepare Chart Data\nconst points = hourly.map(h => {\n    return {\n        x: new Date(h.timestamp).getTime(),\n        y: h.temperature\n    };\n});\npoints.sort((a, b) => a.x - b.x);\n\n// Chart payload\nlet chartMsg = {\n    payload: [{\n        series: [\"Temperature\"],\n        data: [points],\n        labels: [\"Temperature\"]\n    }],\n    topic: 'Temperature',\n    city: city\n};\n\n// 2. Prepare Stats Data\nlet statsMsg = {\n    payload: hourly,\n    city: city\n};\n\nreturn [chartMsg, statsMsg];",
         "outputs": 2,
+        "timeout": "",
         "noerr": 0,
         "initialize": "",
         "finalize": "",
@@ -664,7 +669,7 @@
         "type": "function",
         "z": "d08d6816c25f86a0",
         "name": "check humidity",
-        "func": "const humidity = msg.payload.current.humidity;\nconst city = msg.city || 'Unknown';\n\n// Define thresholds\nconst highHumidityThreshold = 80;\nconst lowHumidityThreshold = 30;\n\nif (humidity >= highHumidityThreshold) {\n    msg.payload = `High Humidity Alert: ${humidity}% in ${city}!`;\n    msg.topic = 'info';\n    return msg;\n} else if (humidity <= lowHumidityThreshold) {\n    msg.payload = `Low Humidity Alert: ${humidity}% in ${city}!`;\n    msg.topic = 'info';\n    return msg;\n}\n\nreturn null;",
+        "func": "const humidity = msg.payload.current.humidity;\nconst city = msg.city || 'Unknown';\n\n// Define thresholds\nconst highHumidityThreshold = 80;\nconst lowHumidityThreshold = 30;\n\nif (humidity >= highHumidityThreshold) {\n    msg.payload = `High Humidity Alert: ${humidity}% in ${city}!`;\n    msg.topic = 'warning';\n    return msg;\n} else if (humidity <= lowHumidityThreshold) {\n    msg.payload = `Low Humidity Alert: ${humidity}% in ${city}!`;\n    msg.topic = 'info';\n    return msg;\n}\n\nreturn null;",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -684,7 +689,7 @@
         "type": "function",
         "z": "d08d6816c25f86a0",
         "name": "check extreme weather",
-        "func": "const description = msg.payload.current.description.toLowerCase();\nconst city = msg.city || 'Unknown';\n\n// Check for extreme weather conditions\nconst extremeConditions = ['thunderstorm', 'heavy rain', 'snow', 'tornado', 'hurricane'];\n\nfor (let condition of extremeConditions) {\n    if (description.includes(condition)) {\n        msg.payload = `EXTREME WEATHER ALERT: ${description} in ${city}!`;\n        msg.topic = 'error';\n        return msg;\n    }\n}\n\nreturn null;",
+        "func": "const description = msg.payload.current.description.toLowerCase();\nconst city = msg.city || 'Unknown';\n\n// Check for extreme weather conditions\nconst extremeConditions = ['thunderstorm', 'heavy rain', 'snow', 'tornado', 'hurricane'];\n\nfor (let condition of extremeConditions) {\n    if (description.includes(condition)) {\n        msg.payload = `EXTREME WEATHER ALERT: ${description} in ${city}!`;\n        msg.topic = 'warning';\n        return msg;\n    }\n}\n\nreturn null;",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -901,7 +906,7 @@
         "hidden": false
     },
     {
-        "id": "03246e569fe001a1",
+        "id": "160a358d6d6f1e6d",
         "type": "global-config",
         "env": [],
         "modules": {
